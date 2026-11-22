@@ -6,389 +6,269 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Builda AVT Market</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap');
-
-:root {
-  --bg:#090b13;
-  --panel:#121624;
-  --panel2:#181e30;
-  --line:rgba(255,255,255,.09);
-  --text:#f4f5ff;
-  --muted:#8e96ad;
-  --purple:#9875ff;
-  --cyan:#54e5dc;
-  --green:#70e5ad;
-}
 *{box-sizing:border-box}
 body{
-  margin:0;background:
-  radial-gradient(ellipse at 75% 0%,rgba(112,75,255,.17),transparent 35%),
-  radial-gradient(ellipse at 0% 50%,rgba(46,207,201,.07),transparent 35%),
-  var(--bg);
-  color:var(--text);
-  font-family:'Be Vietnam Pro',sans-serif;
-  min-height:100vh;
+  margin:0;background:#090812;color:#f5f1ff;
+  font-family:Arial,sans-serif;
+  background-image:radial-gradient(ellipse at top,#30205a 0%,#100d20 48%,#090812 100%);
+  min-height:100vh
 }
-button,input{font:inherit}
-button{cursor:pointer}
-.topbar{
-  height:76px;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 6%;position:sticky;top:0;z-index:10;
-  background:rgba(9,11,19,.86);backdrop-filter:blur(20px);
-}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.7px}
-.logo{
- width:39px;height:39px;border-radius:13px;
- display:grid;place-items:center;font-size:19px;
- background:linear-gradient(135deg,#a88bff,#6444df);
- box-shadow:0 5px 25px #805aff55;
-}
-.brand span{color:#a78aff}
-.nav{display:flex;gap:27px;color:var(--muted);font-size:13px}
-.nav a{color:inherit;text-decoration:none}
-.nav a:hover{color:white}
-.status{
- border:1px solid #70e5ad44;background:#70e5ad10;
- padding:8px 13px;border-radius:30px;color:var(--green);
- font-size:11px;font-weight:700;
-}
-.container{max-width:1160px;margin:auto;padding:48px 22px 80px}
-.hero{text-align:center;margin-bottom:42px}
-.eyebrow{
- color:#b29bff;font-size:11px;font-weight:800;
- letter-spacing:2.5px;text-transform:uppercase;
- display:inline-block;padding:8px 13px;
- background:#9875ff15;border:1px solid #9875ff35;border-radius:30px;
-}
-h1{font-size:clamp(34px,6vw,59px);line-height:1.13;
- letter-spacing:-2.8px;margin:20px 0 13px;font-weight:900}
-.gradient{
- background:linear-gradient(95deg,#c5b5ff,#8b75ff 45%,#63e9dd);
- -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero p{color:var(--muted);font-size:14px;line-height:1.8;max-width:580px;margin:auto}
-.stats{
- display:flex;justify-content:center;gap:35px;margin-top:26px;flex-wrap:wrap
-}
-.stat{font-size:11px;color:var(--muted)}
-.stat b{color:#fff;font-size:13px;margin-right:5px}
-.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:20px}
+.container{width:min(950px,94%);margin:auto;padding:28px 0 55px}
+header{text-align:center;padding:25px 10px 30px}
+.logo{font-size:35px;font-weight:900;letter-spacing:-1px}
+.logo span{color:#b58aff}
+.subtitle{color:#aaa1c3;margin-top:9px;font-size:14px}
 .card{
- background:linear-gradient(145deg,rgba(25,30,48,.96),rgba(15,19,31,.97));
- border:1px solid var(--line);border-radius:23px;padding:25px;
- box-shadow:0 20px 60px #0003;
+  background:rgba(30,24,48,.88);border:1px solid #49366c;
+  border-radius:18px;padding:21px;margin-bottom:17px;
+  box-shadow:0 10px 35px #0004
 }
-.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:21px}
-.card-title{font-size:16px;font-weight:800}
-.step{font-size:10px;color:#b6a3ff;background:#9875ff19;padding:7px 10px;border-radius:20px}
+h2{font-size:18px;margin:0 0 17px}
+.muted{color:#aaa1bb;font-size:13px;line-height:1.6}
 .upload{
- min-height:260px;border:1px dashed #7864bc88;border-radius:18px;
- background:radial-gradient(ellipse at center,#9271ff12,transparent 70%);
- display:flex;align-items:center;justify-content:center;
- text-align:center;position:relative;overflow:hidden;transition:.2s;
+  border:2px dashed #7656a9;border-radius:15px;padding:25px 15px;
+  text-align:center;cursor:pointer;background:#171126
 }
-.upload:hover{border-color:var(--purple);background-color:#9875ff0b}
-.upload input{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2}
-.upload-content{padding:25px;pointer-events:none}
-.upload-icon{
- width:57px;height:57px;margin:0 auto 14px;border-radius:18px;
- display:grid;place-items:center;background:#9875ff20;color:#b6a3ff;font-size:26px
+.upload:hover{border-color:#c3a0ff}
+.upload input{display:none}
+.upload-icon{font-size:38px;margin-bottom:8px}
+#preview{display:none;width:100%;max-height:340px;object-fit:contain;
+  border-radius:12px;margin-top:15px;background:#090812}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.field label{display:block;font-size:13px;color:#c9bfdc;margin-bottom:7px}
+input{
+  width:100%;padding:13px;border-radius:10px;border:1px solid #51416d;
+  background:#100d1b;color:white;font-size:15px;outline:none
 }
-.upload h3{font-size:14px;margin:0 0 7px}
-.upload p{font-size:11px;color:var(--muted);margin:0}
-#preview{display:none;width:100%;height:260px;object-fit:contain;background:#080a12}
-.image-label{
- display:none;position:absolute;bottom:10px;left:10px;
- background:#080a12dd;border:1px solid var(--line);
- padding:7px 11px;border-radius:20px;font-size:10px
+input:focus{border-color:#b58aff}
+button{
+  border:0;border-radius:11px;padding:14px 18px;font-size:15px;
+  font-weight:bold;cursor:pointer;color:white;
+  background:linear-gradient(100deg,#8051d9,#b16cff)
 }
-.hint{font-size:11px;color:var(--muted);line-height:1.7;margin-top:13px}
-.field{margin-top:20px}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:9px}
-.field small{color:var(--muted);font-weight:400}
-.input-wrap{position:relative}
-.input-wrap input{
- width:100%;background:#0c101b;border:1px solid var(--line);
- border-radius:12px;padding:14px 70px 14px 14px;
- color:white;outline:none;font-size:14px;transition:.2s
+button:disabled{opacity:.55;cursor:wait}
+.primary{width:100%;margin-top:17px}
+.result{display:none}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:#171126;border:1px solid #44335f;border-radius:12px;padding:13px}
+.stat small{display:block;color:#aaa1bb;margin-bottom:8px;font-size:12px}
+.stat strong{font-size:17px;overflow-wrap:anywhere}
+.profit{color:#7df0b0}
+.loss{color:#ff8888}
+.ai-box{
+  white-space:pre-wrap;line-height:1.7;font-size:14px;
+  background:#110d1c;border:1px solid #49366c;border-radius:12px;
+  padding:16px;overflow-wrap:anywhere
 }
-.input-wrap input:focus{border-color:#9875ff;box-shadow:0 0 0 3px #9875ff18}
-.unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#a995ff;font-size:11px;font-weight:800}
-.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fee-note{
- display:flex;gap:10px;align-items:flex-start;padding:13px;
- background:#54e5dc0b;border:1px solid #54e5dc28;border-radius:12px;
- color:#a8c9ca;font-size:10px;line-height:1.6;margin-top:17px
+.warning{
+  background:#382719;border:1px solid #9c6b34;color:#ffd69d;
+  padding:13px;border-radius:10px;font-size:13px;line-height:1.6
 }
-.fee-note b{color:var(--cyan)}
-.primary{
- width:100%;border:0;border-radius:13px;padding:16px;
- color:white;font-weight:800;font-size:13px;margin-top:22px;
- background:linear-gradient(100deg,#7959eb,#a078ff);
- box-shadow:0 8px 25px #8d68ff35;transition:.2s
+.status{font-size:13px;color:#c6b4e8;margin-top:12px;text-align:center}
+footer{text-align:center;color:#827995;font-size:12px;padding:18px}
+@media(max-width:600px){
+ .grid{grid-template-columns:1fr}
+ .stat-grid{grid-template-columns:1fr}
+ .logo{font-size:29px}
+ .card{padding:16px}
 }
-.primary:hover{transform:translateY(-2px);filter:brightness(1.12)}
-.result-card{margin-top:20px}
-.result-empty{
- text-align:center;padding:30px 12px;color:var(--muted);
- border:1px dashed var(--line);border-radius:15px;font-size:12px;line-height:1.8
-}
-.result-icon{font-size:30px;margin-bottom:10px}
-.result-content{display:none}
-.result-row{
- display:flex;justify-content:space-between;align-items:center;
- padding:14px 0;border-bottom:1px solid var(--line);gap:10px;font-size:12px
-}
-.result-row:last-child{border:0}
-.result-row span{color:var(--muted)}
-.result-row strong{font-size:14px;text-align:right}
-.result-row .highlight{color:var(--green)}
-.profit-box{
- background:linear-gradient(120deg,#70e5ad14,#54e5dc09);
- border:1px solid #70e5ad35;border-radius:15px;padding:17px;margin-top:17px
-}
-.profit-box small{color:var(--muted);font-size:10px}
-.profit-box strong{display:block;color:var(--green);font-size:26px;margin-top:5px}
-.ai-card{margin-top:20px}
-.ai-head{display:flex;align-items:center;gap:11px}
-.ai-symbol{
- width:37px;height:37px;border-radius:12px;display:grid;place-items:center;
- background:#9875ff20;color:#b59cff;font-size:19px
-}
-.ai-head b{font-size:13px}
-.ai-head small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
-.ai-pending{
- margin-top:17px;padding:15px;background:#0c101b;border-radius:13px;
- border:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.8
-}
-.ai-pending b{color:#c0afff}
-.section-title{font-size:17px;font-weight:800;margin:42px 0 17px}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.feature{
- border:1px solid var(--line);background:#12162499;border-radius:17px;padding:19px
-}
-.feature-icon{font-size:22px;margin-bottom:12px}
-.feature b{font-size:12px;display:block;margin-bottom:7px}
-.feature p{font-size:10px;color:var(--muted);line-height:1.7;margin:0}
-footer{
- border-top:1px solid var(--line);padding:24px 6%;
- color:var(--muted);font-size:10px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap
-}
-@media(max-width:760px){
- .topbar{padding:0 18px;height:66px}
- .nav{display:none}
- .container{padding:35px 15px 55px}
- .layout{grid-template-columns:1fr}
- .card{padding:19px}
- .features{grid-template-columns:1fr}
- .stats{gap:14px}
- h1{letter-spacing:-1.8px}
-}
-@media(max-width:390px){.fields-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<header class="topbar">
- <div class="brand"><div class="logo">✦</div><div>BUILDA <span>MARKET</span></div></div>
- <nav class="nav">
-  <a href="#valuator">Định giá</a>
-  <a href="#features">Tính năng</a>
- </nav>
- <div class="status">● MARKET BETA</div>
+<div class="container">
+<header>
+  <div class="logo">BUILDA <span>AVT MARKET</span></div>
+  <div class="subtitle">Avatar Valuator · AI Image Analysis · GCoin Calculator</div>
 </header>
 
-<main class="container">
- <section class="hero">
-  <div class="eyebrow">✦ AVATAR VALUATION SYSTEM</div>
-  <h1>Định giá avatar<br><span class="gradient">Builda thông minh.</span></h1>
-  <p>Phân tích chất lượng avatar, tính toán giá mua bán và hỗ trợ bro tìm kiếm cơ hội giao dịch tốt hơn.</p>
-  <div class="stats">
-   <div class="stat"><b>✦ AI</b> Phân tích hình ảnh</div>
-   <div class="stat"><b>◈ 5%</b> Phí chuyển GCoin</div>
-   <div class="stat"><b>↗</b> Tính lợi nhuận</div>
-  </div>
- </section>
+<section class="card">
+  <h2>01 · Tải ảnh avatar</h2>
+  <label class="upload" for="avatarFile">
+    <div class="upload-icon">🖼️</div>
+    <strong>Chọn ảnh avatar của bạn</strong>
+    <p class="muted">Hỗ trợ PNG, JPG, WEBP</p>
+    <input id="avatarFile" type="file" accept="image/png,image/jpeg,image/webp">
+  </label>
+  <img id="preview" alt="Ảnh avatar xem trước">
+  <p class="muted">AI sẽ tự nhận diện phong cách Pixel Art hoặc Hand-drawn.</p>
+</section>
 
- <section class="layout" id="valuator">
-  <div>
-   <div class="card">
-    <div class="card-head">
-     <div class="card-title">Thông tin avatar</div>
-     <div class="step">01 / INPUT</div>
-    </div>
-
-    <div class="upload" id="uploadBox">
-     <input type="file" id="avatarFile" accept="image/*">
-     <div class="upload-content" id="uploadContent">
-      <div class="upload-icon">⇧</div>
-      <h3>Tải ảnh avatar của bro lên</h3>
-      <p>Kéo thả hoặc nhấn để chọn ảnh</p>
-      <p style="margin-top:10px">PNG · JPG · WEBP</p>
-     </div>
-     <img id="preview" alt="Ảnh avatar xem trước">
-     <div class="image-label" id="imageLabel">AVATAR PREVIEW</div>
-    </div>
-    <div class="hint">AI sẽ tự nhận diện phong cách Pixel Art hoặc vẽ tay khi được kết nối.</div>
-
+<section class="card">
+  <h2>02 · Tính toán giao dịch</h2>
+  <div class="grid">
     <div class="field">
-     <label>Giá muốn thu mua <small>· Giá bro dự định bỏ ra</small></label>
-     <div class="input-wrap">
+      <label>Giá dự định mua (GCoin)</label>
       <input id="buyPrice" type="number" min="0" placeholder="Ví dụ: 15000">
-      <span class="unit">GCOIN</span>
-     </div>
     </div>
-
     <div class="field">
-     <label>Giá muốn bán <small>· Giá niêm yết</small></label>
-     <div class="input-wrap">
+      <label>Giá dự định bán (GCoin)</label>
       <input id="sellPrice" type="number" min="0" placeholder="Ví dụ: 22000">
-      <span class="unit">GCOIN</span>
-     </div>
     </div>
-
     <div class="field">
-     <label>Giá mua ban đầu <small>· Giá gốc bro đã mua</small></label>
-     <div class="input-wrap">
-      <input id="originalPrice" type="number" min="0" placeholder="Ví dụ: 20000">
-      <span class="unit">GCOIN</span>
-     </div>
+      <label>Giá mua ban đầu (nếu có)</label>
+      <input id="originalPrice" type="number" min="0" placeholder="Không bắt buộc">
     </div>
-
-    <div class="fee-note">
-     <span>ⓘ</span>
-     <div><b>Phí chuyển GCoin cố định 5%.</b><br>Người gửi trả thêm 5% trên số GCoin chuyển. Ví dụ chuyển 20.000 GCoin thì cần gửi 21.000 GCoin.</div>
-    </div>
-
-    <button class="primary" onclick="calculate()">✦ TÍNH TOÁN GIAO DỊCH</button>
-   </div>
   </div>
-
-  <div>
-   <div class="card">
-    <div class="card-head">
-     <div class="card-title">Kết quả giao dịch</div>
-     <div class="step">02 / RESULT</div>
-    </div>
-
-    <div class="result-empty" id="emptyResult">
-     <div class="result-icon">◈</div>
-     <b style="color:#e5e2f6">Chưa có dữ liệu định giá</b><br>
-     Nhập thông tin avatar và nhấn nút tính toán để xem kết quả.
-    </div>
-
-    <div class="result-content" id="resultContent">
-     <div class="result-row"><span>Chi phí khi mua (gồm phí)</span><strong id="buyTotal">—</strong></div>
-     <div class="result-row"><span>Giá niêm yết bán</span><strong id="sellListed">—</strong></div>
-     <div class="result-row"><span>Người mua phải gửi</span><strong id="sellTotal" class="highlight">—</strong></div>
-     <div class="result-row"><span>Lợi nhuận dự kiến</span><strong id="profit">—</strong></div>
-     <div class="profit-box">
-      <small>LỢI NHUẬN / CHÊNH LỆCH DỰ KIẾN</small>
-      <strong id="profitBig">0 GCoin</strong>
-     </div>
-     <div class="hint">Phép tính giả định bro mua và bán thành công ở đúng giá đã nhập. Chưa tính các chi phí khác.</div>
-    </div>
-   </div>
-
-   <div class="card ai-card">
-    <div class="ai-head">
-     <div class="ai-symbol">✧</div>
-     <div><b>BUILDa AI ANALYST</b><small>Hệ thống phân tích avatar</small></div>
-    </div>
-    <div class="ai-pending" id="aiStatus">
-     <b>◉ Đang chờ kết nối Gemini</b><br>
-     Khi kết nối AI, hệ thống sẽ tự nhận diện Pixel Art / vẽ tay và đánh giá nét vẽ, màu sắc, ánh sáng, bố cục, chi tiết và độ hoàn thiện.
-    </div>
-   </div>
+  <div class="warning" style="margin-top:15px">
+    Phí chuyển GCoin là 5%. Người gửi trả thêm 5% trên số GCoin chuyển.
+    Ví dụ chuyển 20.000 GCoin thì người gửi cần có 21.000 GCoin.
   </div>
- </section>
-
- <section id="features">
-  <div class="section-title">Công cụ định giá của bro</div>
-  <div class="features">
-   <div class="feature">
-    <div class="feature-icon">▦</div>
-    <b>Pixel Art Analysis</b>
-    <p>Đánh giá độ rõ pixel, phối màu, chi tiết và bố cục của avatar dạng ô vuông.</p>
-   </div>
-   <div class="feature">
-    <div class="feature-icon">✎</div>
-    <b>Hand-drawn Analysis</b>
-    <p>Đánh giá nét vẽ, đổ bóng, ánh sáng, màu sắc và độ hoàn thiện của tranh vẽ tay.</p>
-   </div>
-   <div class="feature">
-    <div class="feature-icon">↗</div>
-    <b>Trading Calculator</b>
-    <p>Tính phí chuyển GCoin, chi phí mua và chênh lệch bán để hỗ trợ giao dịch.</p>
-   </div>
+  <div class="stat-grid" style="margin-top:15px">
+    <div class="stat">
+      <small>Tiền cần có để mua</small>
+      <strong id="buyTotal">0 GCoin</strong>
+    </div>
+    <div class="stat">
+      <small>Người mua trả khi mua của bạn</small>
+      <strong id="sellTotal">0 GCoin</strong>
+    </div>
+    <div class="stat">
+      <small>Lợi nhuận dự kiến</small>
+      <strong id="profit">0 GCoin</strong>
+    </div>
   </div>
- </section>
-</main>
+  <button class="primary" id="calcBtn">TÍNH TOÁN LỜI / LỖ</button>
+</section>
+
+<section class="card">
+  <h2>03 · AI thẩm định avatar</h2>
+  <p class="muted">
+    Gemini phân tích chất lượng hình ảnh, phong cách, màu sắc, ánh sáng,
+    nét vẽ, bố cục và độ hoàn thiện. AI không tự suy đoán độ hiếm hay giá thị trường.
+  </p>
+  <button class="primary" id="analyzeBtn">✨ PHÂN TÍCH AVATAR BẰNG GEMINI</button>
+  <div class="status" id="status"></div>
+</section>
+
+<section class="card result" id="resultCard">
+  <h2>04 · Kết quả thẩm định</h2>
+  <div class="ai-box" id="aiResult"></div>
+</section>
 
 <footer>
- <div>✦ BUILDA AVT MARKET</div>
- <div>Unofficial community valuation tool · Beta</div>
+  Builda AVT Market · Công cụ hỗ trợ định giá avatar
+  <br>Giá AI đề xuất chỉ mang tính tham khảo, không đảm bảo giá giao dịch thực tế.
 </footer>
+</div>
 
 <script>
-const fileInput = document.getElementById('avatarFile');
-const preview = document.getElementById('preview');
+const BACKEND_URL =
+"https://script.google.com/macros/s/AKfycbyGb9fuU5I31KEUqvDedZyJY7WL4D0IYDbtMoTY3j4bSYYXLIDai_wWN3wV-MdiAYVm9A/exec";
 
-fileInput.addEventListener('change', function(){
- const file = this.files[0];
- if(!file) return;
- if(!file.type.startsWith('image/')){
-  alert('Bro hãy chọn một file hình ảnh nhé!');
-  return;
- }
- const reader = new FileReader();
- reader.onload = e => {
-  preview.src = e.target.result;
-  preview.style.display = 'block';
-  document.getElementById('uploadContent').style.display = 'none';
-  document.getElementById('imageLabel').style.display = 'block';
- };
- reader.readAsDataURL(file);
+const fileInput = document.getElementById("avatarFile");
+const preview = document.getElementById("preview");
+const statusBox = document.getElementById("status");
+const analyzeBtn = document.getElementById("analyzeBtn");
+
+let selectedFile = null;
+
+function numberValue(id) {
+  return Math.max(0, Number(document.getElementById(id).value) || 0);
+}
+
+function formatCoin(value) {
+  return Math.round(value).toLocaleString("vi-VN") + " GCoin";
+}
+
+function calculate() {
+  const buy = numberValue("buyPrice");
+  const sell = numberValue("sellPrice");
+  const actualBuyCost = buy * 1.05;
+  const buyerPaysAtSale = sell * 1.05;
+  const profit = sell - actualBuyCost;
+
+  document.getElementById("buyTotal").textContent = formatCoin(actualBuyCost);
+  document.getElementById("sellTotal").textContent = formatCoin(buyerPaysAtSale);
+
+  const profitElement = document.getElementById("profit");
+  profitElement.textContent = (profit > 0 ? "+" : "") + formatCoin(profit);
+  profitElement.className = profit >= 0 ? "profit" : "loss";
+}
+
+document.getElementById("calcBtn").addEventListener("click", calculate);
+
+fileInput.addEventListener("change", function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+    alert("Bro chọn ảnh PNG, JPG hoặc WEBP nhé.");
+    fileInput.value = "";
+    return;
+  }
+
+  if (file.size > 8 * 1024 * 1024) {
+    alert("Ảnh tối đa 8MB nhé bro.");
+    fileInput.value = "";
+    return;
+  }
+
+  selectedFile = file;
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = "block";
+  statusBox.textContent = "Đã chọn ảnh: " + file.name;
 });
 
-function formatCoin(n){
- return Math.round(n).toLocaleString('vi-VN') + ' GCoin';
+function imageToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(",")[1]);
+    reader.onerror = () => reject(new Error("Không đọc được ảnh."));
+    reader.readAsDataURL(file);
+  });
 }
 
-function calculate(){
- const buy = Number(document.getElementById('buyPrice').value);
- const sell = Number(document.getElementById('sellPrice').value);
- const original = Number(document.getElementById('originalPrice').value);
+analyzeBtn.addEventListener("click", async function() {
+  if (!selectedFile) {
+    alert("Bro cần chọn ảnh avatar trước nhé!");
+    return;
+  }
 
- if(!buy || !sell || buy < 0 || sell < 0 || original < 0){
-  alert('Bro hãy nhập giá mua và giá bán hợp lệ nhé!');
-  return;
- }
+  analyzeBtn.disabled = true;
+  analyzeBtn.textContent = "ĐANG PHÂN TÍCH...";
+  statusBox.textContent = "Đang gửi ảnh đến Gemini. Vui lòng chờ...";
 
- const buyTotal = buy * 1.05;
- const sellTotal = sell * 1.05;
- const profit = sell - buy;
+  try {
+    const base64 = await imageToBase64(selectedFile);
 
- document.getElementById('buyTotal').textContent = formatCoin(buyTotal);
- document.getElementById('sellListed').textContent = formatCoin(sell);
- document.getElementById('sellTotal').textContent = formatCoin(sellTotal);
- document.getElementById('profit').textContent = formatCoin(profit);
- document.getElementById('profitBig').textContent =
-  (profit > 0 ? '+' : '') + formatCoin(profit);
+    const response = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify({
+        image: base64,
+        mimeType: selectedFile.type
+      })
+    });
 
- document.getElementById('profitBig').style.color =
-  profit >= 0 ? 'var(--green)' : '#ff8585';
+    if (!response.ok) {
+      throw new Error("Máy chủ phản hồi lỗi HTTP " + response.status);
+    }
 
- document.getElementById('emptyResult').style.display = 'none';
- document.getElementById('resultContent').style.display = 'block';
+    const data = await response.json();
 
- const status = document.getElementById('aiStatus');
- status.innerHTML =
-  '<b>◉ Ảnh và dữ liệu đã sẵn sàng</b><br>' +
-  'Phần AI Gemini chưa được kết nối. Giá đề xuất và nhận diện phong cách sẽ được bổ sung ở bước tiếp theo.';
+    if (!data.success) {
+      throw new Error(data.error || "Gemini không thể phân tích ảnh.");
+    }
 
-}
+    document.getElementById("aiResult").textContent = data.analysis;
+    document.getElementById("resultCard").style.display = "block";
+    statusBox.textContent = "Phân tích hoàn tất!";
+    document.getElementById("resultCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  } catch (error) {
+    console.error(error);
+    statusBox.textContent = "Chưa kết nối được AI: " + error.message +
+      ". Có thể cần xử lý quyền truy cập hoặc CORS của Apps Script.";
+  } finally {
+    analyzeBtn.disabled = false;
+    analyzeBtn.textContent = "✨ PHÂN TÍCH AVATAR BẰNG GEMINI";
+  }
+});
+
+calculate();
 </script>
 </body>
 </html>
