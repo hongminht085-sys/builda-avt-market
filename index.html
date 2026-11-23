@@ -3,195 +3,281 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Builda AVT Market</title>
 <style>
+:root{--bg:#090516;--panel:#17102b;--purple:#8b5cf6;--pink:#d946ef;--cyan:#22d3ee;--text:#f5f0ff}
 *{box-sizing:border-box}
-body{margin:0;background:#100b20;color:#fff;font-family:Arial,sans-serif}
-header{padding:20px;background:#1c1234;border-bottom:1px solid #49316c;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.logo{font-size:23px;font-weight:bold;color:#c5a1ff}
-button{border:0;border-radius:10px;padding:12px 17px;background:#9155e8;color:white;font-weight:bold;cursor:pointer}
-button:hover{background:#aa79f5}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-nav button{background:#302047}
-main{max-width:950px;margin:auto;padding:22px}
-.hero,.panel{background:linear-gradient(135deg,#25163e,#171027);border:1px solid #49316c;border-radius:18px;padding:24px;margin-bottom:18px}
-h1{font-size:30px;color:#d6baff}
-h2{color:#c9a5ff}
-p{color:#c9bfd9;line-height:1.6}
-input,textarea{width:100%;padding:13px;margin:8px 0 14px;border-radius:9px;border:1px solid #61458a;background:#100b20;color:white}
-input[type=file]{background:#211532}
-.result{background:#120c20;padding:15px;border-radius:10px;margin-top:12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.small{font-size:13px;color:#a99bbd}
-.hidden{display:none}
-footer{text-align:center;padding:25px;color:#a99bbd}
+body{margin:0;background:radial-gradient(ellipse at top,#29104b 0%,#090516 60%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+header{position:sticky;top:0;z-index:10;background:#100a20eF;backdrop-filter:blur(15px);border-bottom:1px solid #ffffff18;padding:14px}
+.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:20px;color:#d8b4fe;text-shadow:0 0 18px #a855f7}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+button{cursor:pointer;border:0;color:white;font-weight:bold;border-radius:12px;padding:12px 16px;background:linear-gradient(110deg,#7c3aed,#c026d3);transition:.25s;box-shadow:0 0 12px #9333ea35}
+button:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 23px #a855f7}
+button:active{transform:scale(.96)}
+button.secondary{background:#ffffff12;border:1px solid #ffffff24;box-shadow:none}
+main{max-width:1050px;margin:30px auto;padding:0 15px}
+.hero{padding:42px 20px;text-align:center;border:1px solid #a855f755;border-radius:25px;background:linear-gradient(135deg,#271044bb,#111027dd);box-shadow:0 0 45px #8b5cf625;animation:appear .8s}
+h1{font-size:clamp(30px,7vw,53px);margin:0 0 12px;background:linear-gradient(90deg,#c4b5fd,#f0abfc,#67e8f9);color:transparent;background-clip:text}
+h2{color:#d8b4fe}
+@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{50%{box-shadow:0 0 35px #a855f755}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
+.card{background:linear-gradient(145deg,#21153a,#110c20);border:1px solid #ffffff1b;border-radius:19px;padding:20px;transition:.3s}
+.card:hover{transform:translateY(-5px);border-color:#c084fc;animation:glow 2s infinite}
+section{margin-top:30px}
+.page{display:none;animation:appear .35s}
+.page.active{display:block}
+input,select,textarea{width:100%;padding:13px;margin:7px 0 14px;border-radius:10px;border:1px solid #7045a0;background:#0c0818;color:white;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#d8b4fe;box-shadow:0 0 12px #9333ea66}
+label{font-size:14px;color:#d8c8f5}
+.form{max-width:520px;margin:auto}
+.notice{padding:13px;background:#ffffff0c;border-left:3px solid var(--cyan);border-radius:8px;color:#d9d1e8}
+.price{font-size:25px;font-weight:900;color:#c4b5fd}
+.small{font-size:13px;color:#b9a9d0}
+#message{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);z-index:30;background:#24133d;padding:13px 20px;border-radius:12px;display:none;border:1px solid #a855f7;max-width:90%}
+.order{padding:13px;border:1px solid #ffffff20;border-radius:12px;margin:10px 0;overflow-wrap:anywhere}
+footer{text-align:center;color:#9e8ab9;padding:40px 10px}
+@media(max-width:600px){.nav{justify-content:center}nav{justify-content:center}nav button{padding:10px;font-size:12px}.hero{padding:30px 15px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">✦ BUILDA AVT MARKET</div>
-  <nav>
-    <button onclick="showPage('home')">Trang chủ</button>
-    <button onclick="showPage('evaluate')">Thẩm định AVT</button>
-    <button onclick="showPage('buy')">Mua GCoin</button>
-    <button onclick="showPage('sell')">Bán GCoin</button>
-    <button onclick="showPage('account')">Tài khoản</button>
-  </nav>
+<div class="nav">
+<div class="logo">✦ BUILDA AVT MARKET</div>
+<nav>
+<button class="secondary" onclick="show('home')">Trang chủ</button>
+<button class="secondary" onclick="show('buy')">Mua GCoin</button>
+<button class="secondary" onclick="show('sell')">Bán GCoin</button>
+<button class="secondary" onclick="show('account')">Tài khoản</button>
+<button class="secondary" onclick="show('admin')">Admin</button>
+</nav>
+</div>
 </header>
 
 <main>
-<section id="home" class="page">
-  <div class="hero">
-    <h1>Chợ giao dịch Builda AVT</h1>
-    <p>Nơi thẩm định avatar và hỗ trợ giao dịch GCoin dành cho cộng đồng Builda.</p>
-    <button onclick="showPage('evaluate')">Thẩm định AVT ngay</button>
-  </div>
-  <div class="cards">
-    <div class="panel">
-      <h2>🎨 Thẩm định AVT</h2>
-      <p>Kiểm tra độ nét, màu sắc, ánh sáng và phong cách Pixel Art hoặc vẽ tay.</p>
-      <button onclick="showPage('evaluate')">Bắt đầu</button>
-    </div>
-    <div class="panel">
-      <h2>🪙 Mua GCoin</h2>
-      <p>Tạo yêu cầu mua GCoin và chờ quản trị viên xác nhận.</p>
-      <button onclick="showPage('buy')">Mua ngay</button>
-    </div>
-    <div class="panel">
-      <h2>💰 Bán GCoin</h2>
-      <p>Gửi yêu cầu bán GCoin để quản trị viên kiểm tra.</p>
-      <button onclick="showPage('sell')">Tạo yêu cầu</button>
-    </div>
-  </div>
-</section>
+<div id="home" class="page active">
+<div class="hero">
+<h1>BUILDA AVT MARKET</h1>
+<p>Chợ giao dịch GCoin và thẩm định AVT</p>
+<p class="small">Không gian giao dịch công nghệ tương lai</p>
+<button onclick="show('buy')">Bắt đầu giao dịch ✦</button>
+</div>
+<div class="cards">
+<div class="card"><h2>💎 Mua GCoin</h2><p>Thẻ cào hoặc chuyển khoản.</p><button onclick="show('buy')">Mua ngay</button></div>
+<div class="card"><h2>💰 Bán GCoin</h2><p>Gửi yêu cầu bán GCoin cho shop.</p><button onclick="show('sell')">Bán ngay</button></div>
+<div class="card"><h2>🎨 Thẩm định AVT</h2><p>Gửi ảnh để được hỗ trợ đánh giá.</p><button onclick="show('evaluate')">Thẩm định</button></div>
+</div>
+<div class="notice" style="margin-top:20px">Website đang trong giai đoạn hoàn thiện. Các đơn giao dịch cần Admin kiểm tra và xác nhận.</div>
+</div>
 
-<section id="evaluate" class="page hidden">
-  <div class="panel">
-    <h2>🎨 Thẩm định avatar</h2>
-    <p>Chọn ảnh AVT muốn kiểm tra.</p>
-    <input type="file" id="avatar" accept="image/*" onchange="previewImage()">
-    <img id="preview" style="display:none;width:100%;max-width:300px;border-radius:12px">
-    <button onclick="analyzeImage()">Phân tích ảnh</button>
-    <div id="analysis" class="result">Kết quả phân tích sẽ hiển thị ở đây.</div>
-    <p class="small">Đây là kiểm tra ảnh cơ bản tại trình duyệt, chưa phải kết quả AI.</p>
-  </div>
-</section>
+<div id="buy" class="page">
+<h2>💎 Mua GCoin</h2>
+<div class="cards">
+<div class="card"><h3>Thẻ cào</h3><div class="price">20.000đ</div><p>Nhận 33.000 GCoin</p></div>
+<div class="card"><h3>Chuyển khoản</h3><div class="price">20.000đ</div><p>Nhận 38.000 GCoin</p></div>
+</div>
+<div class="card form">
+<label>Phương thức mua</label>
+<select id="buyMethod" onchange="toggleCard()"><option value="card">Thẻ cào – 20k = 33k GCoin</option><option value="bank">Chuyển khoản – 20k = 38k GCoin</option></select>
+<div id="cardFields">
+<label>Nhà phát hành thẻ</label>
+<select id="network">
+<option>Viettel</option><option>VinaPhone</option><option>MobiFone</option><option>Vietnamobile</option><option>Gmobile</option><option>Local</option><option>Garena</option>
+</select>
+<label>Mã thẻ</label><input id="cardCode" placeholder="Nhập mã thẻ">
+<label>Số seri</label><input id="serial" placeholder="Nhập số seri">
+</div>
+<label>Builda ID nhận GCoin</label>
+<input id="buyGame" placeholder="Nhập Builda ID">
+<p class="small">Chủ shop bao phí. Đơn sẽ chờ Admin kiểm tra; không nhập mã thẻ nếu chưa xác nhận đúng kênh thanh toán.</p>
+<button onclick="createBuy()">Gửi đơn mua</button>
+</div>
+</div>
 
-<section id="buy" class="page hidden">
-  <div class="panel">
-    <h2>🪙 Mua GCoin</h2>
-    <p>Chọn gói nạp tiền:</p>
-    <p>Thẻ: 20.000đ → 33.000 GCoin</p>
-    <p>Chuyển khoản: 20.000đ → 38.000 GCoin</p>
-    <label>Builda ID nhận GCoin</label>
-    <input id="buyId" placeholder="Nhập chính xác Builda ID">
-    <label>Số tiền muốn nạp (VNĐ)</label>
-    <input id="buyMoney" type="number" min="20000" placeholder="Ví dụ: 20000">
-    <label>Phương thức</label>
-    <select id="buyMethod" style="width:100%;padding:12px;background:#100b20;color:white;border-radius:9px">
-      <option>Chuyển khoản ngân hàng</option>
-      <option>Thẻ cào</option>
-    </select>
-    <p class="small">Kiểm tra kỹ Builda ID. Gửi sai ID có thể khiến bạn mất GCoin.</p>
-    <button onclick="createOrder('buy')">Gửi yêu cầu mua</button>
-    <div id="buyResult" class="result"></div>
-  </div>
-</section>
+<div id="sell" class="page">
+<h2>💰 Bán GCoin cho shop</h2>
+<div class="card form">
+<div class="price">43.000 GCoin = 20.000đ</div>
+<p>Shop bao phí.</p>
+<label>Số GCoin muốn bán</label>
+<input id="sellAmount" type="number" min="1" placeholder="Nhập số GCoin">
+<label>Builda ID</label>
+<input id="sellGame" placeholder="Nhập Builda ID">
+<button onclick="createSell()">Gửi yêu cầu bán</button>
+</div>
+</div>
 
-<section id="sell" class="page hidden">
-  <div class="panel">
-    <h2>💰 Bán GCoin</h2>
-    <p>43.000 GCoin → 20.000 VNĐ</p>
-    <p>90.000 GCoin → 50.000 VNĐ</p>
-    <label>Builda ID của bạn</label>
-    <input id="sellId" placeholder="Nhập Builda ID">
-    <label>Số GCoin muốn bán</label>
-    <input id="sellAmount" type="number" placeholder="Nhập số GCoin">
-    <label>Thông tin nhận tiền</label>
-    <input id="sellPayment" placeholder="Số tài khoản hoặc thông tin nhận tiền">
-    <button onclick="createOrder('sell')">Gửi yêu cầu bán</button>
-    <div id="sellResult" class="result"></div>
-  </div>
-</section>
+<div id="account" class="page">
+<h2>👤 Tài khoản</h2>
+<div class="card form">
+<div id="loggedOut">
+<h3>Đăng nhập</h3>
+<label>Tên tài khoản</label><input id="loginUser">
+<label>Mật khẩu</label><input id="loginPass" type="password">
+<button onclick="login()">Đăng nhập</button>
+<hr style="border-color:#ffffff20;margin:25px 0">
+<h3>Đăng ký</h3>
+<label>Tên tài khoản</label><input id="regUser">
+<label>Mật khẩu (ít nhất 8 ký tự)</label><input id="regPass" type="password">
+<button onclick="register()">Tạo tài khoản</button>
+</div>
+<div id="loggedIn" style="display:none">
+<h3 id="welcome"></h3>
+<button onclick="myOrders()">Lịch sử đơn hàng</button>
+<button class="secondary" onclick="logout()">Đăng xuất</button>
+<div id="history"></div>
+</div>
+</div>
+</div>
 
-<section id="account" class="page hidden">
-  <div class="panel">
-    <h2>👤 Tài khoản</h2>
-    <p class="small">Bản giao diện thử nghiệm. Đăng nhập hiện chưa lưu tài khoản trên máy chủ.</p>
-    <label>Tên đăng nhập</label>
-    <input id="username" placeholder="Tên đăng nhập">
-    <label>Mật khẩu</label>
-    <input id="password" type="password" placeholder="Mật khẩu">
-    <button onclick="demoLogin()">Đăng nhập thử</button>
-    <button onclick="demoLogin()">Đăng ký thử</button>
-    <div id="accountResult" class="result"></div>
-  </div>
-</section>
+<div id="admin" class="page">
+<h2>🛡️ Quản trị Admin</h2>
+<div class="card form">
+<div id="adminLoginBox">
+<label>Tên Admin</label><input id="adminUser">
+<label>Mật khẩu Admin</label><input id="adminPass" type="password">
+<button onclick="adminLogin()">Đăng nhập Admin</button>
+</div>
+<div id="adminPanel" style="display:none">
+<p>Đã đăng nhập phiên Admin.</p>
+<button onclick="loadAdmin()">Tải danh sách đơn</button>
+<button class="secondary" onclick="adminLogout()">Đăng xuất Admin</button>
+<div id="adminOrders"></div>
+</div>
+</div>
+</div>
+
+<div id="evaluate" class="page">
+<h2>🎨 Thẩm định AVT</h2>
+<div class="card form">
+<p>Chức năng AI đang chờ tích hợp vào máy chủ.</p>
+<label>Chọn ảnh AVT</label><input type="file" id="avatar" accept="image/*">
+<div id="preview"></div>
+<button onclick="evaluateAvatar()">Kiểm tra ảnh</button>
+<div id="evaluationResult"></div>
+</div>
+</div>
 </main>
-
-<footer>
-  <p>Liên hệ Zalo: 0386753088</p>
-  <p>Builda ID: 32120081</p>
-  <p>© Builda AVT Market</p>
-</footer>
+<footer>BUILDA AVT MARKET • Giao dịch có Admin kiểm tra</footer>
+<div id="message"></div>
 
 <script>
-function showPage(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
- window.scrollTo(0,0);
+const API = "https://script.google.com/macros/s/AKfycbyGb9fuU5I31KEUqvDedZyJY7WL4D0IYDbtMoTY3j4bSYYXLIDai_wWN3wV-MdiAYVm9A/exec";
+let token = sessionStorage.getItem("builda_token") || "";
+let adminToken = sessionStorage.getItem("builda_admin") || "";
+
+function show(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-function previewImage(){
- const f=document.getElementById('avatar').files[0];
- if(!f)return;
- const img=document.getElementById('preview');
- img.src=URL.createObjectURL(f);
- img.style.display='block';
+function msg(t){
+ const el=document.getElementById("message");
+ el.textContent=t;el.style.display="block";
+ setTimeout(()=>el.style.display="none",3500);
 }
-function analyzeImage(){
- const f=document.getElementById('avatar').files[0];
- const out=document.getElementById('analysis');
- if(!f){out.textContent='Bro hãy chọn ảnh trước nhé.';return;}
- const img=new Image();
- img.onload=function(){
-  const canvas=document.createElement('canvas');
-  const ctx=canvas.getContext('2d');
-  canvas.width=img.width;canvas.height=img.height;
-  ctx.drawImage(img,0,0);
-  const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
-  let total=0,bright=0;
-  for(let i=0;i<pixels.length;i+=4){
-   bright+=(pixels[i]+pixels[i+1]+pixels[i+2])/3;
-   total++;
-  }
-  const avg=bright/total;
-  out.innerHTML='<b>Kết quả kiểm tra cơ bản</b><br>'+
-   'Kích thước: '+img.width+' × '+img.height+' px<br>'+
-   'Dung lượng: '+(f.size/1024).toFixed(1)+' KB<br>'+
-   'Độ sáng trung bình: '+avg.toFixed(1)+'/255<br>'+
-   'Đánh giá ánh sáng: '+(avg<75?'Khá tối':avg>190?'Khá sáng':'Tương đối cân bằng')+
-   '<br><br>Chưa có AI đánh giá phong cách hoặc chất lượng nghệ thuật.';
- };
- img.src=URL.createObjectURL(f);
+async function api(data){
+ const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
+ return await r.json();
 }
-function createOrder(type){
- const result=document.getElementById(type==='buy'?'buyResult':'sellResult');
- const id=document.getElementById(type==='buy'?'buyId':'sellId').value.trim();
- if(!id){result.textContent='Bro hãy nhập Builda ID.';return;}
- if(type==='buy'){
-  const money=Number(document.getElementById('buyMoney').value);
-  if(money<20000){result.textContent='Số tiền tối thiểu là 20.000đ.';return;}
-  result.textContent='Đã kiểm tra thông tin trên giao diện. Chức năng gửi đơn lên máy chủ chưa được kết nối.';
- }else{
-  const amount=Number(document.getElementById('sellAmount').value);
-  if(amount<=0){result.textContent='Hãy nhập số GCoin hợp lệ.';return;}
-  result.textContent='Yêu cầu bán đang ở chế độ thử nghiệm, chưa gửi đến admin.';
- }
+function toggleCard(){
+ document.getElementById("cardFields").style.display=
+ document.getElementById("buyMethod").value==="card"?"block":"none";
 }
-function demoLogin(){
- document.getElementById('accountResult').textContent='Đăng nhập thật chưa được kết nối máy chủ. Không dùng mật khẩu thật ở bản thử nghiệm này.';
+async function register(){
+ try{
+ const r=await api({action:"register",username:regUser.value,password:regPass.value});
+ msg(r.success?"Đăng ký thành công!":r.error);
+ }catch(e){msg("Không kết nối được máy chủ: "+e.message)}
 }
+async function login(){
+ try{
+ const r=await api({action:"login",username:loginUser.value,password:loginPass.value});
+ if(!r.success)throw Error(r.error);
+ token=r.token;sessionStorage.setItem("builda_token",token);
+ updateAccount();msg("Đăng nhập thành công!");
+ }catch(e){msg(e.message)}
+}
+function updateAccount(){
+ document.getElementById("loggedOut").style.display=token?"none":"block";
+ document.getElementById("loggedIn").style.display=token?"block":"none";
+ if(token)document.getElementById("welcome").textContent="Xin chào "+loginUser.value;
+}
+function logout(){
+ token="";sessionStorage.removeItem("builda_token");updateAccount();msg("Đã đăng xuất");
+}
+async function createBuy(){
+ if(!token)return msg("Vui lòng đăng nhập trước");
+ const method=buyMethod.value;
+ if(method==="card"&&(!cardCode.value.trim()||!serial.value.trim()))return msg("Nhập mã thẻ và số seri");
+ if(!buyGame.value.trim())return msg("Nhập Builda ID");
+ try{
+ const r=await api({action:"createOrder",token,type:"buy",method,gameId:buyGame.value,network:network.value,cardCode:cardCode.value,serial:serial.value});
+ msg(r.success?"Đã gửi đơn, chờ Admin kiểm tra":r.error);
+ }catch(e){msg(e.message)}
+}
+async function createSell(){
+ if(!token)return msg("Vui lòng đăng nhập trước");
+ const amount=Number(sellAmount.value);
+ if(!Number.isSafeInteger(amount)||amount<=0)return msg("Số GCoin không hợp lệ");
+ if(!sellGame.value.trim())return msg("Nhập Builda ID");
+ try{
+ const r=await api({action:"createOrder",token,type:"sell",amount,gameId:sellGame.value});
+ msg(r.success?"Đã gửi yêu cầu bán, chờ Admin kiểm tra":r.error);
+ }catch(e){msg(e.message)}
+}
+async function myOrders(){
+ try{
+ const r=await api({action:"myOrders",token});
+ if(!r.success)throw Error(r.error);
+ history.innerHTML=r.orders.map(o=>`<div class="order">Đơn ${o.id}<br>Loại: ${o.type}<br>Số GCoin: ${o.amount}<br>Trạng thái: ${o.status}</div>`).join("")||"Chưa có đơn";
+ }catch(e){msg(e.message)}
+}
+async function adminLogin(){
+ try{
+ const r=await api({action:"adminLogin",username:adminUser.value,password:adminPass.value});
+ if(!r.success)throw Error(r.error);
+ adminToken=r.token;sessionStorage.setItem("builda_admin",adminToken);
+ adminLoginBox.style.display="none";adminPanel.style.display="block";loadAdmin();msg("Đăng nhập Admin thành công");
+ }catch(e){msg(e.message)}
+}
+async function loadAdmin(){
+ try{
+ const r=await api({action:"adminOrders",token:adminToken});
+ if(!r.success)throw Error(r.error);
+ adminOrders.innerHTML=r.orders.map(o=>`<div class="order">
+ <b>${o.type.toUpperCase()} – ${o.username}</b><br>
+ Đơn: ${o.id}<br>GCoin: ${o.amount} • VNĐ: ${o.vnd}<br>
+ Builda ID: ${o.gameId}<br>Trạng thái: ${o.status}<br>
+ ${o.status==="pending"?`<button onclick="updateOrder('${o.id}','approved')">Duyệt</button> <button class="secondary" onclick="updateOrder('${o.id}','rejected')">Từ chối</button>`:""}
+ </div>`).join("")||"Chưa có đơn hàng";
+ }catch(e){msg(e.message)}
+}
+async function updateOrder(id,status){
+ try{
+ const r=await api({action:"adminUpdateOrder",token:adminToken,orderId:id,status});
+ if(!r.success)throw Error(r.error);
+ msg("Đã cập nhật trạng thái");loadAdmin();
+ }catch(e){msg(e.message)}
+}
+function adminLogout(){
+ adminToken="";sessionStorage.removeItem("builda_admin");
+ adminLoginBox.style.display="block";adminPanel.style.display="none";
+}
+function evaluateAvatar(){
+ const f=avatar.files[0];
+ if(!f)return msg("Chọn ảnh trước");
+ if(f.size>8*1024*1024)return msg("Ảnh tối đa 8MB");
+ evaluationResult.textContent="Ảnh đã chọn. AI Gemini chưa được nối vào máy chủ.";
+}
+avatar.addEventListener("change",()=>{
+ const f=avatar.files[0];if(!f)return;
+ const url=URL.createObjectURL(f);
+ preview.innerHTML=`<img src="${url}" style="width:100%;max-width:260px;border-radius:14px">`;
+});
+updateAccount();toggleCard();
 </script>
 </body>
 </html>
