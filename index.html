@@ -7,268 +7,191 @@
 <title>Builda AVT Market</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;background:#090812;color:#f5f1ff;
-  font-family:Arial,sans-serif;
-  background-image:radial-gradient(ellipse at top,#30205a 0%,#100d20 48%,#090812 100%);
-  min-height:100vh
-}
-.container{width:min(950px,94%);margin:auto;padding:28px 0 55px}
-header{text-align:center;padding:25px 10px 30px}
-.logo{font-size:35px;font-weight:900;letter-spacing:-1px}
-.logo span{color:#b58aff}
-.subtitle{color:#aaa1c3;margin-top:9px;font-size:14px}
-.card{
-  background:rgba(30,24,48,.88);border:1px solid #49366c;
-  border-radius:18px;padding:21px;margin-bottom:17px;
-  box-shadow:0 10px 35px #0004
-}
-h2{font-size:18px;margin:0 0 17px}
-.muted{color:#aaa1bb;font-size:13px;line-height:1.6}
-.upload{
-  border:2px dashed #7656a9;border-radius:15px;padding:25px 15px;
-  text-align:center;cursor:pointer;background:#171126
-}
-.upload:hover{border-color:#c3a0ff}
-.upload input{display:none}
-.upload-icon{font-size:38px;margin-bottom:8px}
-#preview{display:none;width:100%;max-height:340px;object-fit:contain;
-  border-radius:12px;margin-top:15px;background:#090812}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.field label{display:block;font-size:13px;color:#c9bfdc;margin-bottom:7px}
-input{
-  width:100%;padding:13px;border-radius:10px;border:1px solid #51416d;
-  background:#100d1b;color:white;font-size:15px;outline:none
-}
-input:focus{border-color:#b58aff}
-button{
-  border:0;border-radius:11px;padding:14px 18px;font-size:15px;
-  font-weight:bold;cursor:pointer;color:white;
-  background:linear-gradient(100deg,#8051d9,#b16cff)
-}
-button:disabled{opacity:.55;cursor:wait}
-.primary{width:100%;margin-top:17px}
-.result{display:none}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stat{background:#171126;border:1px solid #44335f;border-radius:12px;padding:13px}
-.stat small{display:block;color:#aaa1bb;margin-bottom:8px;font-size:12px}
-.stat strong{font-size:17px;overflow-wrap:anywhere}
-.profit{color:#7df0b0}
-.loss{color:#ff8888}
-.ai-box{
-  white-space:pre-wrap;line-height:1.7;font-size:14px;
-  background:#110d1c;border:1px solid #49366c;border-radius:12px;
-  padding:16px;overflow-wrap:anywhere
-}
-.warning{
-  background:#382719;border:1px solid #9c6b34;color:#ffd69d;
-  padding:13px;border-radius:10px;font-size:13px;line-height:1.6
-}
-.status{font-size:13px;color:#c6b4e8;margin-top:12px;text-align:center}
-footer{text-align:center;color:#827995;font-size:12px;padding:18px}
-@media(max-width:600px){
- .grid{grid-template-columns:1fr}
- .stat-grid{grid-template-columns:1fr}
- .logo{font-size:29px}
- .card{padding:16px}
-}
+body{margin:0;background:#100b20;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px;background:#1c1234;border-bottom:1px solid #49316c;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{font-size:23px;font-weight:bold;color:#c5a1ff}
+button{border:0;border-radius:10px;padding:12px 17px;background:#9155e8;color:white;font-weight:bold;cursor:pointer}
+button:hover{background:#aa79f5}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav button{background:#302047}
+main{max-width:950px;margin:auto;padding:22px}
+.hero,.panel{background:linear-gradient(135deg,#25163e,#171027);border:1px solid #49316c;border-radius:18px;padding:24px;margin-bottom:18px}
+h1{font-size:30px;color:#d6baff}
+h2{color:#c9a5ff}
+p{color:#c9bfd9;line-height:1.6}
+input,textarea{width:100%;padding:13px;margin:8px 0 14px;border-radius:9px;border:1px solid #61458a;background:#100b20;color:white}
+input[type=file]{background:#211532}
+.result{background:#120c20;padding:15px;border-radius:10px;margin-top:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.small{font-size:13px;color:#a99bbd}
+.hidden{display:none}
+footer{text-align:center;padding:25px;color:#a99bbd}
 </style>
 </head>
 <body>
-<div class="container">
 <header>
-  <div class="logo">BUILDA <span>AVT MARKET</span></div>
-  <div class="subtitle">Avatar Valuator · AI Image Analysis · GCoin Calculator</div>
+  <div class="logo">✦ BUILDA AVT MARKET</div>
+  <nav>
+    <button onclick="showPage('home')">Trang chủ</button>
+    <button onclick="showPage('evaluate')">Thẩm định AVT</button>
+    <button onclick="showPage('buy')">Mua GCoin</button>
+    <button onclick="showPage('sell')">Bán GCoin</button>
+    <button onclick="showPage('account')">Tài khoản</button>
+  </nav>
 </header>
 
-<section class="card">
-  <h2>01 · Tải ảnh avatar</h2>
-  <label class="upload" for="avatarFile">
-    <div class="upload-icon">🖼️</div>
-    <strong>Chọn ảnh avatar của bạn</strong>
-    <p class="muted">Hỗ trợ PNG, JPG, WEBP</p>
-    <input id="avatarFile" type="file" accept="image/png,image/jpeg,image/webp">
-  </label>
-  <img id="preview" alt="Ảnh avatar xem trước">
-  <p class="muted">AI sẽ tự nhận diện phong cách Pixel Art hoặc Hand-drawn.</p>
-</section>
-
-<section class="card">
-  <h2>02 · Tính toán giao dịch</h2>
-  <div class="grid">
-    <div class="field">
-      <label>Giá dự định mua (GCoin)</label>
-      <input id="buyPrice" type="number" min="0" placeholder="Ví dụ: 15000">
+<main>
+<section id="home" class="page">
+  <div class="hero">
+    <h1>Chợ giao dịch Builda AVT</h1>
+    <p>Nơi thẩm định avatar và hỗ trợ giao dịch GCoin dành cho cộng đồng Builda.</p>
+    <button onclick="showPage('evaluate')">Thẩm định AVT ngay</button>
+  </div>
+  <div class="cards">
+    <div class="panel">
+      <h2>🎨 Thẩm định AVT</h2>
+      <p>Kiểm tra độ nét, màu sắc, ánh sáng và phong cách Pixel Art hoặc vẽ tay.</p>
+      <button onclick="showPage('evaluate')">Bắt đầu</button>
     </div>
-    <div class="field">
-      <label>Giá dự định bán (GCoin)</label>
-      <input id="sellPrice" type="number" min="0" placeholder="Ví dụ: 22000">
+    <div class="panel">
+      <h2>🪙 Mua GCoin</h2>
+      <p>Tạo yêu cầu mua GCoin và chờ quản trị viên xác nhận.</p>
+      <button onclick="showPage('buy')">Mua ngay</button>
     </div>
-    <div class="field">
-      <label>Giá mua ban đầu (nếu có)</label>
-      <input id="originalPrice" type="number" min="0" placeholder="Không bắt buộc">
+    <div class="panel">
+      <h2>💰 Bán GCoin</h2>
+      <p>Gửi yêu cầu bán GCoin để quản trị viên kiểm tra.</p>
+      <button onclick="showPage('sell')">Tạo yêu cầu</button>
     </div>
   </div>
-  <div class="warning" style="margin-top:15px">
-    Phí chuyển GCoin là 5%. Người gửi trả thêm 5% trên số GCoin chuyển.
-    Ví dụ chuyển 20.000 GCoin thì người gửi cần có 21.000 GCoin.
-  </div>
-  <div class="stat-grid" style="margin-top:15px">
-    <div class="stat">
-      <small>Tiền cần có để mua</small>
-      <strong id="buyTotal">0 GCoin</strong>
-    </div>
-    <div class="stat">
-      <small>Người mua trả khi mua của bạn</small>
-      <strong id="sellTotal">0 GCoin</strong>
-    </div>
-    <div class="stat">
-      <small>Lợi nhuận dự kiến</small>
-      <strong id="profit">0 GCoin</strong>
-    </div>
-  </div>
-  <button class="primary" id="calcBtn">TÍNH TOÁN LỜI / LỖ</button>
 </section>
 
-<section class="card">
-  <h2>03 · AI thẩm định avatar</h2>
-  <p class="muted">
-    Gemini phân tích chất lượng hình ảnh, phong cách, màu sắc, ánh sáng,
-    nét vẽ, bố cục và độ hoàn thiện. AI không tự suy đoán độ hiếm hay giá thị trường.
-  </p>
-  <button class="primary" id="analyzeBtn">✨ PHÂN TÍCH AVATAR BẰNG GEMINI</button>
-  <div class="status" id="status"></div>
+<section id="evaluate" class="page hidden">
+  <div class="panel">
+    <h2>🎨 Thẩm định avatar</h2>
+    <p>Chọn ảnh AVT muốn kiểm tra.</p>
+    <input type="file" id="avatar" accept="image/*" onchange="previewImage()">
+    <img id="preview" style="display:none;width:100%;max-width:300px;border-radius:12px">
+    <button onclick="analyzeImage()">Phân tích ảnh</button>
+    <div id="analysis" class="result">Kết quả phân tích sẽ hiển thị ở đây.</div>
+    <p class="small">Đây là kiểm tra ảnh cơ bản tại trình duyệt, chưa phải kết quả AI.</p>
+  </div>
 </section>
 
-<section class="card result" id="resultCard">
-  <h2>04 · Kết quả thẩm định</h2>
-  <div class="ai-box" id="aiResult"></div>
+<section id="buy" class="page hidden">
+  <div class="panel">
+    <h2>🪙 Mua GCoin</h2>
+    <p>Chọn gói nạp tiền:</p>
+    <p>Thẻ: 20.000đ → 33.000 GCoin</p>
+    <p>Chuyển khoản: 20.000đ → 38.000 GCoin</p>
+    <label>Builda ID nhận GCoin</label>
+    <input id="buyId" placeholder="Nhập chính xác Builda ID">
+    <label>Số tiền muốn nạp (VNĐ)</label>
+    <input id="buyMoney" type="number" min="20000" placeholder="Ví dụ: 20000">
+    <label>Phương thức</label>
+    <select id="buyMethod" style="width:100%;padding:12px;background:#100b20;color:white;border-radius:9px">
+      <option>Chuyển khoản ngân hàng</option>
+      <option>Thẻ cào</option>
+    </select>
+    <p class="small">Kiểm tra kỹ Builda ID. Gửi sai ID có thể khiến bạn mất GCoin.</p>
+    <button onclick="createOrder('buy')">Gửi yêu cầu mua</button>
+    <div id="buyResult" class="result"></div>
+  </div>
 </section>
+
+<section id="sell" class="page hidden">
+  <div class="panel">
+    <h2>💰 Bán GCoin</h2>
+    <p>43.000 GCoin → 20.000 VNĐ</p>
+    <p>90.000 GCoin → 50.000 VNĐ</p>
+    <label>Builda ID của bạn</label>
+    <input id="sellId" placeholder="Nhập Builda ID">
+    <label>Số GCoin muốn bán</label>
+    <input id="sellAmount" type="number" placeholder="Nhập số GCoin">
+    <label>Thông tin nhận tiền</label>
+    <input id="sellPayment" placeholder="Số tài khoản hoặc thông tin nhận tiền">
+    <button onclick="createOrder('sell')">Gửi yêu cầu bán</button>
+    <div id="sellResult" class="result"></div>
+  </div>
+</section>
+
+<section id="account" class="page hidden">
+  <div class="panel">
+    <h2>👤 Tài khoản</h2>
+    <p class="small">Bản giao diện thử nghiệm. Đăng nhập hiện chưa lưu tài khoản trên máy chủ.</p>
+    <label>Tên đăng nhập</label>
+    <input id="username" placeholder="Tên đăng nhập">
+    <label>Mật khẩu</label>
+    <input id="password" type="password" placeholder="Mật khẩu">
+    <button onclick="demoLogin()">Đăng nhập thử</button>
+    <button onclick="demoLogin()">Đăng ký thử</button>
+    <div id="accountResult" class="result"></div>
+  </div>
+</section>
+</main>
 
 <footer>
-  Builda AVT Market · Công cụ hỗ trợ định giá avatar
-  <br>Giá AI đề xuất chỉ mang tính tham khảo, không đảm bảo giá giao dịch thực tế.
+  <p>Liên hệ Zalo: 0386753088</p>
+  <p>Builda ID: 32120081</p>
+  <p>© Builda AVT Market</p>
 </footer>
-</div>
 
 <script>
-const BACKEND_URL =
-"https://script.google.com/macros/s/AKfycbyGb9fuU5I31KEUqvDedZyJY7WL4D0IYDbtMoTY3j4bSYYXLIDai_wWN3wV-MdiAYVm9A/exec";
-
-const fileInput = document.getElementById("avatarFile");
-const preview = document.getElementById("preview");
-const statusBox = document.getElementById("status");
-const analyzeBtn = document.getElementById("analyzeBtn");
-
-let selectedFile = null;
-
-function numberValue(id) {
-  return Math.max(0, Number(document.getElementById(id).value) || 0);
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ window.scrollTo(0,0);
 }
-
-function formatCoin(value) {
-  return Math.round(value).toLocaleString("vi-VN") + " GCoin";
+function previewImage(){
+ const f=document.getElementById('avatar').files[0];
+ if(!f)return;
+ const img=document.getElementById('preview');
+ img.src=URL.createObjectURL(f);
+ img.style.display='block';
 }
-
-function calculate() {
-  const buy = numberValue("buyPrice");
-  const sell = numberValue("sellPrice");
-  const actualBuyCost = buy * 1.05;
-  const buyerPaysAtSale = sell * 1.05;
-  const profit = sell - actualBuyCost;
-
-  document.getElementById("buyTotal").textContent = formatCoin(actualBuyCost);
-  document.getElementById("sellTotal").textContent = formatCoin(buyerPaysAtSale);
-
-  const profitElement = document.getElementById("profit");
-  profitElement.textContent = (profit > 0 ? "+" : "") + formatCoin(profit);
-  profitElement.className = profit >= 0 ? "profit" : "loss";
+function analyzeImage(){
+ const f=document.getElementById('avatar').files[0];
+ const out=document.getElementById('analysis');
+ if(!f){out.textContent='Bro hãy chọn ảnh trước nhé.';return;}
+ const img=new Image();
+ img.onload=function(){
+  const canvas=document.createElement('canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=img.width;canvas.height=img.height;
+  ctx.drawImage(img,0,0);
+  const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  let total=0,bright=0;
+  for(let i=0;i<pixels.length;i+=4){
+   bright+=(pixels[i]+pixels[i+1]+pixels[i+2])/3;
+   total++;
+  }
+  const avg=bright/total;
+  out.innerHTML='<b>Kết quả kiểm tra cơ bản</b><br>'+
+   'Kích thước: '+img.width+' × '+img.height+' px<br>'+
+   'Dung lượng: '+(f.size/1024).toFixed(1)+' KB<br>'+
+   'Độ sáng trung bình: '+avg.toFixed(1)+'/255<br>'+
+   'Đánh giá ánh sáng: '+(avg<75?'Khá tối':avg>190?'Khá sáng':'Tương đối cân bằng')+
+   '<br><br>Chưa có AI đánh giá phong cách hoặc chất lượng nghệ thuật.';
+ };
+ img.src=URL.createObjectURL(f);
 }
-
-document.getElementById("calcBtn").addEventListener("click", calculate);
-
-fileInput.addEventListener("change", function(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-    alert("Bro chọn ảnh PNG, JPG hoặc WEBP nhé.");
-    fileInput.value = "";
-    return;
-  }
-
-  if (file.size > 8 * 1024 * 1024) {
-    alert("Ảnh tối đa 8MB nhé bro.");
-    fileInput.value = "";
-    return;
-  }
-
-  selectedFile = file;
-  preview.src = URL.createObjectURL(file);
-  preview.style.display = "block";
-  statusBox.textContent = "Đã chọn ảnh: " + file.name;
-});
-
-function imageToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(",")[1]);
-    reader.onerror = () => reject(new Error("Không đọc được ảnh."));
-    reader.readAsDataURL(file);
-  });
+function createOrder(type){
+ const result=document.getElementById(type==='buy'?'buyResult':'sellResult');
+ const id=document.getElementById(type==='buy'?'buyId':'sellId').value.trim();
+ if(!id){result.textContent='Bro hãy nhập Builda ID.';return;}
+ if(type==='buy'){
+  const money=Number(document.getElementById('buyMoney').value);
+  if(money<20000){result.textContent='Số tiền tối thiểu là 20.000đ.';return;}
+  result.textContent='Đã kiểm tra thông tin trên giao diện. Chức năng gửi đơn lên máy chủ chưa được kết nối.';
+ }else{
+  const amount=Number(document.getElementById('sellAmount').value);
+  if(amount<=0){result.textContent='Hãy nhập số GCoin hợp lệ.';return;}
+  result.textContent='Yêu cầu bán đang ở chế độ thử nghiệm, chưa gửi đến admin.';
+ }
 }
-
-analyzeBtn.addEventListener("click", async function() {
-  if (!selectedFile) {
-    alert("Bro cần chọn ảnh avatar trước nhé!");
-    return;
-  }
-
-  analyzeBtn.disabled = true;
-  analyzeBtn.textContent = "ĐANG PHÂN TÍCH...";
-  statusBox.textContent = "Đang gửi ảnh đến Gemini. Vui lòng chờ...";
-
-  try {
-    const base64 = await imageToBase64(selectedFile);
-
-    const response = await fetch(BACKEND_URL, {
-      method: "POST",
-      headers: {"Content-Type": "text/plain;charset=utf-8"},
-      body: JSON.stringify({
-        image: base64,
-        mimeType: selectedFile.type
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error("Máy chủ phản hồi lỗi HTTP " + response.status);
-    }
-
-    const data = await response.json();
-
-    if (!data.success) {
-      throw new Error(data.error || "Gemini không thể phân tích ảnh.");
-    }
-
-    document.getElementById("aiResult").textContent = data.analysis;
-    document.getElementById("resultCard").style.display = "block";
-    statusBox.textContent = "Phân tích hoàn tất!";
-    document.getElementById("resultCard").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  } catch (error) {
-    console.error(error);
-    statusBox.textContent = "Chưa kết nối được AI: " + error.message +
-      ". Có thể cần xử lý quyền truy cập hoặc CORS của Apps Script.";
-  } finally {
-    analyzeBtn.disabled = false;
-    analyzeBtn.textContent = "✨ PHÂN TÍCH AVATAR BẰNG GEMINI";
-  }
-});
-
-calculate();
+function demoLogin(){
+ document.getElementById('accountResult').textContent='Đăng nhập thật chưa được kết nối máy chủ. Không dùng mật khẩu thật ở bản thử nghiệm này.';
+}
 </script>
 </body>
 </html>
