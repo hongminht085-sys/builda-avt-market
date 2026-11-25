@@ -3,281 +3,655 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090514">
 <title>Builda AVT Market</title>
 <style>
-:root{--bg:#090516;--panel:#17102b;--purple:#8b5cf6;--pink:#d946ef;--cyan:#22d3ee;--text:#f5f0ff}
+:root{
+  --bg:#090514;
+  --panel:#151027;
+  --purple:#a855f7;
+  --pink:#ec4899;
+  --cyan:#22d3ee;
+  --text:#f7f1ff;
+  --muted:#b9a9d0;
+}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#29104b 0%,#090516 60%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
-header{position:sticky;top:0;z-index:10;background:#100a20eF;backdrop-filter:blur(15px);border-bottom:1px solid #ffffff18;padding:14px}
-.nav{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.logo{font-weight:900;font-size:20px;color:#d8b4fe;text-shadow:0 0 18px #a855f7}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 0%,#49146b55,transparent 35%),
+    radial-gradient(ellipse at 90% 30%,#083b6255,transparent 35%),
+    var(--bg);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.22;
+  background-image:
+    linear-gradient(#ffffff08 1px,transparent 1px),
+    linear-gradient(90deg,#ffffff08 1px,transparent 1px);
+  background-size:42px 42px;
+}
+a{color:inherit}
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:#0d081de8;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid #ffffff18;
+}
+.nav{
+  max-width:1180px;
+  margin:auto;
+  padding:13px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+.logo{
+  font-size:19px;
+  font-weight:1000;
+  letter-spacing:1px;
+  color:#e9d5ff;
+  text-shadow:0 0 15px var(--purple);
+}
+.logo span{color:var(--cyan)}
 nav{display:flex;gap:7px;flex-wrap:wrap}
-button{cursor:pointer;border:0;color:white;font-weight:bold;border-radius:12px;padding:12px 16px;background:linear-gradient(110deg,#7c3aed,#c026d3);transition:.25s;box-shadow:0 0 12px #9333ea35}
-button:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 23px #a855f7}
-button:active{transform:scale(.96)}
-button.secondary{background:#ffffff12;border:1px solid #ffffff24;box-shadow:none}
-main{max-width:1050px;margin:30px auto;padding:0 15px}
-.hero{padding:42px 20px;text-align:center;border:1px solid #a855f755;border-radius:25px;background:linear-gradient(135deg,#271044bb,#111027dd);box-shadow:0 0 45px #8b5cf625;animation:appear .8s}
-h1{font-size:clamp(30px,7vw,53px);margin:0 0 12px;background:linear-gradient(90deg,#c4b5fd,#f0abfc,#67e8f9);color:transparent;background-clip:text}
-h2{color:#d8b4fe}
-@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes glow{50%{box-shadow:0 0 35px #a855f755}}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
-.card{background:linear-gradient(145deg,#21153a,#110c20);border:1px solid #ffffff1b;border-radius:19px;padding:20px;transition:.3s}
-.card:hover{transform:translateY(-5px);border-color:#c084fc;animation:glow 2s infinite}
-section{margin-top:30px}
-.page{display:none;animation:appear .35s}
+button{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  border:1px solid #ffffff18;
+  border-radius:12px;
+  padding:12px 17px;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(110deg,#7c3aed,#c026d3);
+  box-shadow:0 0 18px #9333ea33;
+  transition:transform .22s,box-shadow .22s,filter .22s;
+}
+button:hover{
+  transform:translateY(-3px) scale(1.035);
+  box-shadow:0 0 25px #c084fc88;
+  filter:brightness(1.15);
+}
+button:active{transform:scale(.94)}
+button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+button.secondary{
+  background:#ffffff0c;
+  border:1px solid #ffffff22;
+  box-shadow:none;
+}
+button.secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+button:after{
+  content:"";
+  position:absolute;
+  top:-80%;
+  left:-60%;
+  width:35%;
+  height:260%;
+  background:#ffffff35;
+  transform:rotate(25deg);
+  transition:left .6s;
+}
+button:hover:after{left:140%}
+main{max-width:1120px;margin:35px auto;padding:0 17px}
+.page{display:none;animation:pageIn .4s ease}
 .page.active{display:block}
-input,select,textarea{width:100%;padding:13px;margin:7px 0 14px;border-radius:10px;border:1px solid #7045a0;background:#0c0818;color:white;outline:none}
-input:focus,select:focus,textarea:focus{border-color:#d8b4fe;box-shadow:0 0 12px #9333ea66}
-label{font-size:14px;color:#d8c8f5}
-.form{max-width:520px;margin:auto}
-.notice{padding:13px;background:#ffffff0c;border-left:3px solid var(--cyan);border-radius:8px;color:#d9d1e8}
-.price{font-size:25px;font-weight:900;color:#c4b5fd}
-.small{font-size:13px;color:#b9a9d0}
-#message{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);z-index:30;background:#24133d;padding:13px 20px;border-radius:12px;display:none;border:1px solid #a855f7;max-width:90%}
-.order{padding:13px;border:1px solid #ffffff20;border-radius:12px;margin:10px 0;overflow-wrap:anywhere}
-footer{text-align:center;color:#9e8ab9;padding:40px 10px}
-@media(max-width:600px){.nav{justify-content:center}nav{justify-content:center}nav button{padding:10px;font-size:12px}.hero{padding:30px 15px}}
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:65px 22px;
+  text-align:center;
+  border:1px solid #c084fc55;
+  border-radius:28px;
+  background:linear-gradient(135deg,#271044d9,#10152bd9);
+  box-shadow:0 0 55px #9333ea24,inset 0 0 35px #a855f711;
+}
+.hero:before,.hero:after{
+  content:"";
+  position:absolute;
+  width:240px;height:240px;
+  border:1px solid #d8b4fe33;
+  border-radius:50%;
+  animation:orbit 13s linear infinite;
+}
+.hero:before{top:-150px;left:-90px}
+.hero:after{bottom:-180px;right:-80px;animation-direction:reverse}
+@keyframes orbit{to{transform:rotate(360deg)}}
+.hero h1{
+  position:relative;
+  margin:0 0 14px;
+  font-size:clamp(32px,7vw,65px);
+  font-weight:1000;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,#c4b5fd,#f0abfc,#67e8f9,#c4b5fd);
+  background-size:250%;
+  color:transparent;
+  background-clip:text;
+  animation:gradient 5s linear infinite;
+}
+@keyframes gradient{to{background-position:250%}}
+.hero p{color:#e9d5ff;line-height:1.7}
+.hero .sub{color:var(--muted)}
+.hero-button{margin-top:15px;padding:15px 25px;font-size:15px}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
+  gap:17px;
+  margin-top:22px;
+}
+.card{
+  position:relative;
+  overflow:hidden;
+  padding:22px;
+  border:1px solid #ffffff1c;
+  border-radius:20px;
+  background:linear-gradient(145deg,#211735,#110d20);
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:#c084fc99;
+  box-shadow:0 12px 35px #8b5cf633;
+}
+.card h2,.card h3{color:#e9d5ff}
+.card p{color:var(--muted);line-height:1.6}
+.icon{
+  font-size:35px;
+  filter:drop-shadow(0 0 12px #c084fc);
+}
+.price{
+  font-size:26px;
+  font-weight:1000;
+  color:#c4b5fd;
+  text-shadow:0 0 15px #a855f755;
+}
+section{margin-top:28px}
+h2.section-title{color:#e9d5ff}
+.form{max-width:560px;margin:20px auto}
+label{display:block;color:#ddcef5;font-size:14px;margin-top:12px}
+input,select,textarea{
+  display:block;
+  width:100%;
+  margin:8px 0 15px;
+  padding:14px;
+  color:white;
+  background:#0b0717;
+  border:1px solid #7045a0;
+  border-radius:11px;
+  outline:none;
+  font-size:15px;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 15px #22d3ee33;
+}
+input::placeholder{color:#85769b}
+.notice{
+  margin-top:20px;
+  padding:15px;
+  border-left:3px solid var(--cyan);
+  border-radius:9px;
+  background:#ffffff0b;
+  color:#d9d1e8;
+  line-height:1.6;
+}
+.small{font-size:13px;color:var(--muted);line-height:1.6}
+hr{border:0;border-top:1px solid #ffffff20;margin:25px 0}
+.order{
+  margin:12px 0;
+  padding:15px;
+  border:1px solid #ffffff22;
+  border-radius:13px;
+  overflow-wrap:anywhere;
+  background:#ffffff08;
+  line-height:1.8;
+}
+#message{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  z-index:100;
+  display:none;
+  width:max-content;
+  max-width:90%;
+  padding:14px 20px;
+  border:1px solid #c084fc;
+  border-radius:13px;
+  background:#211237;
+  box-shadow:0 0 25px #9333ea55;
+  transform:translateX(-50%);
+  animation:pageIn .25s;
+}
+#preview img{
+  display:block;
+  max-width:100%;
+  max-height:300px;
+  margin:12px auto;
+  border-radius:15px;
+  border:1px solid #c084fc;
+}
+footer{
+  padding:40px 15px;
+  text-align:center;
+  color:#9685b2;
+  border-top:1px solid #ffffff12;
+}
+@media(max-width:700px){
+  .nav{flex-direction:column}
+  nav{justify-content:center}
+  nav button{padding:10px 12px;font-size:12px}
+  main{margin:22px auto}
+  .hero{padding:48px 17px}
+  .card{padding:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
+}
 </style>
 </head>
 <body>
 <header>
-<div class="nav">
-<div class="logo">✦ BUILDA AVT MARKET</div>
-<nav>
-<button class="secondary" onclick="show('home')">Trang chủ</button>
-<button class="secondary" onclick="show('buy')">Mua GCoin</button>
-<button class="secondary" onclick="show('sell')">Bán GCoin</button>
-<button class="secondary" onclick="show('account')">Tài khoản</button>
-<button class="secondary" onclick="show('admin')">Admin</button>
-</nav>
-</div>
+  <div class="nav">
+    <div class="logo">✦ BUILDA <span>AVT</span> MARKET</div>
+    <nav>
+      <button class="secondary" onclick="showPage('home')">⌂ Trang chủ</button>
+      <button class="secondary" onclick="showPage('buy')">💎 Mua</button>
+      <button class="secondary" onclick="showPage('sell')">💰 Bán</button>
+      <button class="secondary" onclick="showPage('account')">👤 Tài khoản</button>
+      <button class="secondary" onclick="showPage('admin')">🛡 Admin</button>
+    </nav>
+  </div>
 </header>
 
 <main>
-<div id="home" class="page active">
-<div class="hero">
-<h1>BUILDA AVT MARKET</h1>
-<p>Chợ giao dịch GCoin và thẩm định AVT</p>
-<p class="small">Không gian giao dịch công nghệ tương lai</p>
-<button onclick="show('buy')">Bắt đầu giao dịch ✦</button>
-</div>
-<div class="cards">
-<div class="card"><h2>💎 Mua GCoin</h2><p>Thẻ cào hoặc chuyển khoản.</p><button onclick="show('buy')">Mua ngay</button></div>
-<div class="card"><h2>💰 Bán GCoin</h2><p>Gửi yêu cầu bán GCoin cho shop.</p><button onclick="show('sell')">Bán ngay</button></div>
-<div class="card"><h2>🎨 Thẩm định AVT</h2><p>Gửi ảnh để được hỗ trợ đánh giá.</p><button onclick="show('evaluate')">Thẩm định</button></div>
-</div>
-<div class="notice" style="margin-top:20px">Website đang trong giai đoạn hoàn thiện. Các đơn giao dịch cần Admin kiểm tra và xác nhận.</div>
-</div>
+  <div id="home" class="page active">
+    <div class="hero">
+      <h1>BUILDA AVT MARKET</h1>
+      <p>✦ THE NEXT LEVEL GCOIN EXPERIENCE ✦</p>
+      <p class="sub">Giao dịch GCoin • Thẩm định AVT • Không gian Cyber Anime</p>
+      <button class="hero-button" onclick="showPage('buy')">BẮT ĐẦU GIAO DỊCH ✦</button>
+    </div>
 
-<div id="buy" class="page">
-<h2>💎 Mua GCoin</h2>
-<div class="cards">
-<div class="card"><h3>Thẻ cào</h3><div class="price">20.000đ</div><p>Nhận 33.000 GCoin</p></div>
-<div class="card"><h3>Chuyển khoản</h3><div class="price">20.000đ</div><p>Nhận 38.000 GCoin</p></div>
-</div>
-<div class="card form">
-<label>Phương thức mua</label>
-<select id="buyMethod" onchange="toggleCard()"><option value="card">Thẻ cào – 20k = 33k GCoin</option><option value="bank">Chuyển khoản – 20k = 38k GCoin</option></select>
-<div id="cardFields">
-<label>Nhà phát hành thẻ</label>
-<select id="network">
-<option>Viettel</option><option>VinaPhone</option><option>MobiFone</option><option>Vietnamobile</option><option>Gmobile</option><option>Local</option><option>Garena</option>
-</select>
-<label>Mã thẻ</label><input id="cardCode" placeholder="Nhập mã thẻ">
-<label>Số seri</label><input id="serial" placeholder="Nhập số seri">
-</div>
-<label>Builda ID nhận GCoin</label>
-<input id="buyGame" placeholder="Nhập Builda ID">
-<p class="small">Chủ shop bao phí. Đơn sẽ chờ Admin kiểm tra; không nhập mã thẻ nếu chưa xác nhận đúng kênh thanh toán.</p>
-<button onclick="createBuy()">Gửi đơn mua</button>
-</div>
-</div>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">💎</div>
+        <h2>Mua GCoin</h2>
+        <p>Nạp GCoin qua thẻ cào hoặc chuyển khoản.</p>
+        <button onclick="showPage('buy')">Mua ngay →</button>
+      </div>
+      <div class="card">
+        <div class="icon">💰</div>
+        <h2>Bán GCoin</h2>
+        <p>Gửi yêu cầu bán GCoin cho cửa hàng.</p>
+        <button onclick="showPage('sell')">Bán ngay →</button>
+      </div>
+      <div class="card">
+        <div class="icon">🎨</div>
+        <h2>Thẩm định AVT</h2>
+        <p>Chuẩn bị ảnh đại diện để AI hỗ trợ đánh giá.</p>
+        <button onclick="showPage('evaluate')">Thẩm định →</button>
+      </div>
+    </div>
+    <div class="notice">⚡ Các đơn giao dịch sẽ được Admin kiểm tra và xác nhận. Hãy đăng nhập trước khi tạo đơn.</div>
+  </div>
 
-<div id="sell" class="page">
-<h2>💰 Bán GCoin cho shop</h2>
-<div class="card form">
-<div class="price">43.000 GCoin = 20.000đ</div>
-<p>Shop bao phí.</p>
-<label>Số GCoin muốn bán</label>
-<input id="sellAmount" type="number" min="1" placeholder="Nhập số GCoin">
-<label>Builda ID</label>
-<input id="sellGame" placeholder="Nhập Builda ID">
-<button onclick="createSell()">Gửi yêu cầu bán</button>
-</div>
-</div>
+  <div id="buy" class="page">
+    <h2 class="section-title">💎 MUA GCOIN</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🎟️</div>
+        <h3>Thẻ cào</h3>
+        <div class="price">20.000đ</div>
+        <p>Nhận 33.000 GCoin</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏦</div>
+        <h3>Chuyển khoản</h3>
+        <div class="price">20.000đ</div>
+        <p>Nhận 38.000 GCoin</p>
+      </div>
+    </div>
 
-<div id="account" class="page">
-<h2>👤 Tài khoản</h2>
-<div class="card form">
-<div id="loggedOut">
-<h3>Đăng nhập</h3>
-<label>Tên tài khoản</label><input id="loginUser">
-<label>Mật khẩu</label><input id="loginPass" type="password">
-<button onclick="login()">Đăng nhập</button>
-<hr style="border-color:#ffffff20;margin:25px 0">
-<h3>Đăng ký</h3>
-<label>Tên tài khoản</label><input id="regUser">
-<label>Mật khẩu (ít nhất 8 ký tự)</label><input id="regPass" type="password">
-<button onclick="register()">Tạo tài khoản</button>
-</div>
-<div id="loggedIn" style="display:none">
-<h3 id="welcome"></h3>
-<button onclick="myOrders()">Lịch sử đơn hàng</button>
-<button class="secondary" onclick="logout()">Đăng xuất</button>
-<div id="history"></div>
-</div>
-</div>
-</div>
+    <div class="card form">
+      <label>Phương thức mua</label>
+      <select id="buyMethod" onchange="toggleCardFields()">
+        <option value="card">Thẻ cào – 20k = 33k GCoin</option>
+        <option value="bank">Chuyển khoản – 20k = 38k GCoin</option>
+      </select>
+      <div id="cardFields">
+        <label>Nhà phát hành thẻ</label>
+        <select id="network">
+          <option>Viettel</option>
+          <option>VinaPhone</option>
+          <option>MobiFone</option>
+          <option>Vietnamobile</option>
+          <option>Gmobile</option>
+          <option>Local</option>
+          <option>Garena</option>
+        </select>
+        <label>Mã thẻ</label>
+        <input id="cardCode" placeholder="Nhập mã thẻ">
+        <label>Số seri</label>
+        <input id="serial" placeholder="Nhập số seri">
+      </div>
+      <label>Builda ID nhận GCoin</label>
+      <input id="buyGame" placeholder="Nhập Builda ID">
+      <p class="small">Đơn sẽ ở trạng thái chờ Admin kiểm tra. Chỉ gửi thông tin thanh toán qua kênh chính thức của cửa hàng.</p>
+      <button onclick="createBuy()">GỬI ĐƠN MUA ✦</button>
+    </div>
+  </div>
 
-<div id="admin" class="page">
-<h2>🛡️ Quản trị Admin</h2>
-<div class="card form">
-<div id="adminLoginBox">
-<label>Tên Admin</label><input id="adminUser">
-<label>Mật khẩu Admin</label><input id="adminPass" type="password">
-<button onclick="adminLogin()">Đăng nhập Admin</button>
-</div>
-<div id="adminPanel" style="display:none">
-<p>Đã đăng nhập phiên Admin.</p>
-<button onclick="loadAdmin()">Tải danh sách đơn</button>
-<button class="secondary" onclick="adminLogout()">Đăng xuất Admin</button>
-<div id="adminOrders"></div>
-</div>
-</div>
-</div>
+  <div id="sell" class="page">
+    <h2 class="section-title">💰 BÁN GCOIN</h2>
+    <div class="card form">
+      <div class="price">43.000 GCoin = 20.000đ</div>
+      <p>Gửi yêu cầu để Admin kiểm tra.</p>
+      <label>Số GCoin muốn bán</label>
+      <input id="sellAmount" type="number" min="1" placeholder="Nhập số GCoin">
+      <label>Builda ID</label>
+      <input id="sellGame" placeholder="Nhập Builda ID">
+      <button onclick="createSell()">GỬI YÊU CẦU BÁN ✦</button>
+    </div>
+  </div>
 
-<div id="evaluate" class="page">
-<h2>🎨 Thẩm định AVT</h2>
-<div class="card form">
-<p>Chức năng AI đang chờ tích hợp vào máy chủ.</p>
-<label>Chọn ảnh AVT</label><input type="file" id="avatar" accept="image/*">
-<div id="preview"></div>
-<button onclick="evaluateAvatar()">Kiểm tra ảnh</button>
-<div id="evaluationResult"></div>
-</div>
-</div>
+  <div id="account" class="page">
+    <h2 class="section-title">👤 TÀI KHOẢN</h2>
+    <div class="card form">
+      <div id="loggedOut">
+        <h3>Đăng nhập</h3>
+        <label>Tên tài khoản</label>
+        <input id="loginUser" autocomplete="username">
+        <label>Mật khẩu</label>
+        <input id="loginPass" type="password" autocomplete="current-password">
+        <button onclick="login()">ĐĂNG NHẬP</button>
+        <hr>
+        <h3>Tạo tài khoản</h3>
+        <label>Tên tài khoản</label>
+        <input id="regUser" autocomplete="username">
+        <label>Mật khẩu (ít nhất 8 ký tự)</label>
+        <input id="regPass" type="password" autocomplete="new-password">
+        <button onclick="register()">ĐĂNG KÝ</button>
+      </div>
+      <div id="loggedIn" hidden>
+        <h3 id="welcome"></h3>
+        <button onclick="loadMyOrders()">LỊCH SỬ ĐƠN HÀNG</button>
+        <button class="secondary" onclick="logout()">ĐĂNG XUẤT</button>
+        <div id="history"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="admin" class="page">
+    <h2 class="section-title">🛡️ QUẢN TRỊ ADMIN</h2>
+    <div class="card form">
+      <div id="adminLoginBox">
+        <label>Tên Admin</label>
+        <input id="adminUser" autocomplete="username">
+        <label>Mật khẩu Admin</label>
+        <input id="adminPass" type="password" autocomplete="current-password">
+        <button onclick="adminLogin()">ĐĂNG NHẬP ADMIN</button>
+      </div>
+      <div id="adminPanel" hidden>
+        <p>Đã đăng nhập phiên Admin.</p>
+        <button onclick="loadAdmin()">TẢI DANH SÁCH ĐƠN</button>
+        <button class="secondary" onclick="adminLogout()">ĐĂNG XUẤT</button>
+        <div id="adminOrders"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="evaluate" class="page">
+    <h2 class="section-title">🎨 THẨM ĐỊNH AVT</h2>
+    <div class="card form">
+      <p>Chọn ảnh đại diện để chuẩn bị gửi đến hệ thống AI.</p>
+      <label>Ảnh AVT</label>
+      <input type="file" id="avatar" accept="image/png,image/jpeg,image/webp">
+      <div id="preview"></div>
+      <button onclick="evaluateAvatar()">KIỂM TRA ẢNH ✦</button>
+      <div id="evaluationResult" class="notice" hidden></div>
+      <p class="small">Phân tích AI chỉ hoạt động sau khi máy chủ được tích hợp và kiểm thử.</p>
+    </div>
+  </div>
 </main>
-<footer>BUILDA AVT MARKET • Giao dịch có Admin kiểm tra</footer>
-<div id="message"></div>
+
+<footer>
+  ✦ BUILDA AVT MARKET ✦<br>
+  <span class="small">Anime Cyberpunk Edition</span>
+</footer>
+<div id="message" role="status" aria-live="polite"></div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbyGb9fuU5I31KEUqvDedZyJY7WL4D0IYDbtMoTY3j4bSYYXLIDai_wWN3wV-MdiAYVm9A/exec";
+"use strict";
+
+const API = "https://script.google.com/macros/s/AKfycbxgdkujrdY1Q7bh9Wdhw-QKWIZxa8f2Fg_t9xUnu7i_vhiU3XHxIBqvSkM9-2Xm0Nqx1g/exec";
+
 let token = sessionStorage.getItem("builda_token") || "";
 let adminToken = sessionStorage.getItem("builda_admin") || "";
 
-function show(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- window.scrollTo({top:0,behavior:"smooth"});
+const $ = id => document.getElementById(id);
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const page = $(id);
+  if(page) page.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-function msg(t){
- const el=document.getElementById("message");
- el.textContent=t;el.style.display="block";
- setTimeout(()=>el.style.display="none",3500);
+
+function msg(text){
+  const el=$("message");
+  el.textContent=String(text || "");
+  el.style.display="block";
+  clearTimeout(msg.timer);
+  msg.timer=setTimeout(()=>el.style.display="none",3500);
 }
+
 async function api(data){
- const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
- return await r.json();
+  const response=await fetch(API,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(data)
+  });
+  if(!response.ok) throw new Error("Máy chủ phản hồi lỗi HTTP "+response.status);
+  return response.json();
 }
-function toggleCard(){
- document.getElementById("cardFields").style.display=
- document.getElementById("buyMethod").value==="card"?"block":"none";
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
 }
+
+function toggleCardFields(){
+  $("cardFields").hidden=$("buyMethod").value!=="card";
+}
+
 async function register(){
- try{
- const r=await api({action:"register",username:regUser.value,password:regPass.value});
- msg(r.success?"Đăng ký thành công!":r.error);
- }catch(e){msg("Không kết nối được máy chủ: "+e.message)}
+  const username=$("regUser").value.trim();
+  const password=$("regPass").value;
+  if(!username || !password) return msg("Nhập đầy đủ thông tin");
+  try{
+    const r=await api({action:"register",username,password});
+    msg(r.success?"Đăng ký thành công!":r.error || "Đăng ký thất bại");
+  }catch(e){msg(e.message)}
 }
+
 async function login(){
- try{
- const r=await api({action:"login",username:loginUser.value,password:loginPass.value});
- if(!r.success)throw Error(r.error);
- token=r.token;sessionStorage.setItem("builda_token",token);
- updateAccount();msg("Đăng nhập thành công!");
- }catch(e){msg(e.message)}
+  try{
+    const r=await api({
+      action:"login",
+      username:$("loginUser").value.trim(),
+      password:$("loginPass").value
+    });
+    if(!r.success) throw new Error(r.error || "Đăng nhập thất bại");
+    token=r.token;
+    sessionStorage.setItem("builda_token",token);
+    updateAccount();
+    msg("Đăng nhập thành công!");
+  }catch(e){msg(e.message)}
 }
+
 function updateAccount(){
- document.getElementById("loggedOut").style.display=token?"none":"block";
- document.getElementById("loggedIn").style.display=token?"block":"none";
- if(token)document.getElementById("welcome").textContent="Xin chào "+loginUser.value;
+  $("loggedOut").hidden=!!token;
+  $("loggedIn").hidden=!token;
+  if(token) $("welcome").textContent="Xin chào "+$("loginUser").value;
 }
+
 function logout(){
- token="";sessionStorage.removeItem("builda_token");updateAccount();msg("Đã đăng xuất");
+  token="";
+  sessionStorage.removeItem("builda_token");
+  updateAccount();
+  msg("Đã đăng xuất");
 }
+
 async function createBuy(){
- if(!token)return msg("Vui lòng đăng nhập trước");
- const method=buyMethod.value;
- if(method==="card"&&(!cardCode.value.trim()||!serial.value.trim()))return msg("Nhập mã thẻ và số seri");
- if(!buyGame.value.trim())return msg("Nhập Builda ID");
- try{
- const r=await api({action:"createOrder",token,type:"buy",method,gameId:buyGame.value,network:network.value,cardCode:cardCode.value,serial:serial.value});
- msg(r.success?"Đã gửi đơn, chờ Admin kiểm tra":r.error);
- }catch(e){msg(e.message)}
+  if(!token) return msg("Vui lòng đăng nhập trước");
+  const method=$("buyMethod").value;
+  const gameId=$("buyGame").value.trim();
+  if(!gameId) return msg("Nhập Builda ID");
+  if(method==="card" && (!$("cardCode").value.trim() || !$("serial").value.trim()))
+    return msg("Nhập mã thẻ và số seri");
+
+  try{
+    const r=await api({
+      action:"createOrder",
+      token,
+      type:"buy",
+      method,
+      gameId,
+      network:$("network").value,
+      cardCode:$("cardCode").value.trim(),
+      serial:$("serial").value.trim()
+    });
+    msg(r.success?"Đã gửi đơn, chờ Admin kiểm tra":r.error || "Không tạo được đơn");
+  }catch(e){msg(e.message)}
 }
+
 async function createSell(){
- if(!token)return msg("Vui lòng đăng nhập trước");
- const amount=Number(sellAmount.value);
- if(!Number.isSafeInteger(amount)||amount<=0)return msg("Số GCoin không hợp lệ");
- if(!sellGame.value.trim())return msg("Nhập Builda ID");
- try{
- const r=await api({action:"createOrder",token,type:"sell",amount,gameId:sellGame.value});
- msg(r.success?"Đã gửi yêu cầu bán, chờ Admin kiểm tra":r.error);
- }catch(e){msg(e.message)}
+  if(!token) return msg("Vui lòng đăng nhập trước");
+  const amount=Number($("sellAmount").value);
+  const gameId=$("sellGame").value.trim();
+  if(!Number.isSafeInteger(amount)||amount<=0) return msg("Số GCoin không hợp lệ");
+  if(!gameId) return msg("Nhập Builda ID");
+
+  try{
+    const r=await api({action:"createOrder",token,type:"sell",amount,gameId});
+    msg(r.success?"Đã gửi yêu cầu bán":r.error || "Không tạo được đơn");
+  }catch(e){msg(e.message)}
 }
-async function myOrders(){
- try{
- const r=await api({action:"myOrders",token});
- if(!r.success)throw Error(r.error);
- history.innerHTML=r.orders.map(o=>`<div class="order">Đơn ${o.id}<br>Loại: ${o.type}<br>Số GCoin: ${o.amount}<br>Trạng thái: ${o.status}</div>`).join("")||"Chưa có đơn";
- }catch(e){msg(e.message)}
+
+async function loadMyOrders(){
+  try{
+    const r=await api({action:"myOrders",token});
+    if(!r.success) throw new Error(r.error || "Không tải được đơn hàng");
+    $("history").innerHTML=(r.orders || []).map(o=>`
+      <div class="order">
+        <b>Đơn ${escapeHTML(o.id)}</b><br>
+        Loại: ${escapeHTML(o.type)}<br>
+        GCoin: ${escapeHTML(o.amount)}<br>
+        Trạng thái: ${escapeHTML(o.status)}
+      </div>
+    `).join("") || "Chưa có đơn hàng";
+  }catch(e){msg(e.message)}
 }
+
 async function adminLogin(){
- try{
- const r=await api({action:"adminLogin",username:adminUser.value,password:adminPass.value});
- if(!r.success)throw Error(r.error);
- adminToken=r.token;sessionStorage.setItem("builda_admin",adminToken);
- adminLoginBox.style.display="none";adminPanel.style.display="block";loadAdmin();msg("Đăng nhập Admin thành công");
- }catch(e){msg(e.message)}
+  try{
+    const r=await api({
+      action:"adminLogin",
+      username:$("adminUser").value.trim(),
+      password:$("adminPass").value
+    });
+    if(!r.success) throw new Error(r.error || "Đăng nhập Admin thất bại");
+    adminToken=r.token;
+    sessionStorage.setItem("builda_admin",adminToken);
+    $("adminLoginBox").hidden=true;
+    $("adminPanel").hidden=false;
+    await loadAdmin();
+    msg("Đăng nhập Admin thành công");
+  }catch(e){msg(e.message)}
 }
+
 async function loadAdmin(){
- try{
- const r=await api({action:"adminOrders",token:adminToken});
- if(!r.success)throw Error(r.error);
- adminOrders.innerHTML=r.orders.map(o=>`<div class="order">
- <b>${o.type.toUpperCase()} – ${o.username}</b><br>
- Đơn: ${o.id}<br>GCoin: ${o.amount} • VNĐ: ${o.vnd}<br>
- Builda ID: ${o.gameId}<br>Trạng thái: ${o.status}<br>
- ${o.status==="pending"?`<button onclick="updateOrder('${o.id}','approved')">Duyệt</button> <button class="secondary" onclick="updateOrder('${o.id}','rejected')">Từ chối</button>`:""}
- </div>`).join("")||"Chưa có đơn hàng";
- }catch(e){msg(e.message)}
+  try{
+    const r=await api({action:"adminOrders",token:adminToken});
+    if(!r.success) throw new Error(r.error || "Không tải được đơn");
+    $("adminOrders").innerHTML=(r.orders || []).map(o=>`
+      <div class="order">
+        <b>${escapeHTML(o.type).toUpperCase()} – ${escapeHTML(o.username)}</b><br>
+        Đơn: ${escapeHTML(o.id)}<br>
+        GCoin: ${escapeHTML(o.amount)} • VNĐ: ${escapeHTML(o.vnd)}<br>
+        Builda ID: ${escapeHTML(o.gameId)}<br>
+        Trạng thái: ${escapeHTML(o.status)}<br>
+        ${o.status==="pending" ? `
+          <button onclick="updateOrder('${escapeHTML(o.id)}','approved')">Duyệt</button>
+          <button class="secondary" onclick="updateOrder('${escapeHTML(o.id)}','rejected')">Từ chối</button>
+        ` : ""}
+      </div>
+    `).join("") || "Chưa có đơn hàng";
+  }catch(e){msg(e.message)}
 }
+
 async function updateOrder(id,status){
- try{
- const r=await api({action:"adminUpdateOrder",token:adminToken,orderId:id,status});
- if(!r.success)throw Error(r.error);
- msg("Đã cập nhật trạng thái");loadAdmin();
- }catch(e){msg(e.message)}
+  try{
+    const r=await api({action:"adminUpdateOrder",token:adminToken,orderId:id,status});
+    if(!r.success) throw new Error(r.error || "Cập nhật thất bại");
+    msg("Đã cập nhật trạng thái");
+    await loadAdmin();
+  }catch(e){msg(e.message)}
 }
+
 function adminLogout(){
- adminToken="";sessionStorage.removeItem("builda_admin");
- adminLoginBox.style.display="block";adminPanel.style.display="none";
+  adminToken="";
+  sessionStorage.removeItem("builda_admin");
+  $("adminLoginBox").hidden=false;
+  $("adminPanel").hidden=true;
+  msg("Đã đăng xuất Admin");
 }
+
 function evaluateAvatar(){
- const f=avatar.files[0];
- if(!f)return msg("Chọn ảnh trước");
- if(f.size>8*1024*1024)return msg("Ảnh tối đa 8MB");
- evaluationResult.textContent="Ảnh đã chọn. AI Gemini chưa được nối vào máy chủ.";
+  const file=$("avatar").files[0];
+  if(!file) return msg("Chọn ảnh trước");
+  if(file.size>8*1024*1024) return msg("Ảnh tối đa 8MB");
+  const result=$("evaluationResult");
+  result.hidden=false;
+  result.textContent="Ảnh đã được chọn. Máy chủ cần được tích hợp AI trước khi có thể phân tích ảnh.";
 }
-avatar.addEventListener("change",()=>{
- const f=avatar.files[0];if(!f)return;
- const url=URL.createObjectURL(f);
- preview.innerHTML=`<img src="${url}" style="width:100%;max-width:260px;border-radius:14px">`;
+
+$("avatar").addEventListener("change",()=>{
+  const file=$("avatar").files[0];
+  if(!file) return;
+  const url=URL.createObjectURL(file);
+  $("preview").innerHTML="";
+  const img=document.createElement("img");
+  img.src=url;
+  img.alt="Ảnh AVT xem trước";
+  $("preview").appendChild(img);
 });
-updateAccount();toggleCard();
+
+updateAccount();
+toggleCardFields();
 </script>
 </body>
 </html>
